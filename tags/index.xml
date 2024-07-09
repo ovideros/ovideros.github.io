@@ -1,10 +1,67 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Tags on My New Hugo Site</title>
+        <title>Tags on Ovid的博客</title>
         <link>https://ovideros.github.io/tags/</link>
-        <description>Recent content in Tags on My New Hugo Site</description>
+        <description>Recent content in Tags on Ovid的博客</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language><atom:link href="https://ovideros.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+        <language>en-us</language>
+        <lastBuildDate>Tue, 09 Jul 2024 17:02:35 +0800</lastBuildDate><atom:link href="https://ovideros.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>数学</title>
+        <link>https://ovideros.github.io/tags/%E6%95%B0%E5%AD%A6/</link>
+        <pubDate>Tue, 09 Jul 2024 17:02:35 +0800</pubDate>
+        
+        <guid>https://ovideros.github.io/tags/%E6%95%B0%E5%AD%A6/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>线性代数</title>
+        <link>https://ovideros.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</link>
+        <pubDate>Tue, 09 Jul 2024 17:02:35 +0800</pubDate>
+        
+        <guid>https://ovideros.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Css</title>
+        <link>https://ovideros.github.io/tags/css/</link>
+        <pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/tags/css/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Html</title>
+        <link>https://ovideros.github.io/tags/html/</link>
+        <pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/tags/html/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Markdown</title>
+        <link>https://ovideros.github.io/tags/markdown/</link>
+        <pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/tags/markdown/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Themes</title>
+        <link>https://ovideros.github.io/tags/themes/</link>
+        <pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/tags/themes/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Example Tag</title>
+        <link>https://ovideros.github.io/tags/example-tag/</link>
+        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/tags/example-tag/</guid>
+        <description></description>
+        </item>
+        
     </channel>
 </rss>
