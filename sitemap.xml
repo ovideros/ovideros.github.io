@@ -2,39 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ovideros.github.io/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2024-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ovideros.github.io/page/</loc>
+    <loc>http://localhost:1313/page/</loc>
     <lastmod>2024-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ovideros.github.io/archives/</loc>
+    <loc>http://localhost:1313/archives/</loc>
     <lastmod>2024-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://ovideros.github.io/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <lastmod>2024-07-09T17:02:35+08:00</lastmod>
   </url><url>
-    <loc>https://ovideros.github.io/post/</loc>
+    <loc>http://localhost:1313/post/</loc>
     <lastmod>2024-07-09T17:02:35+08:00</lastmod>
   </url><url>
-    <loc>https://ovideros.github.io/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2024-07-09T17:02:35+08:00</lastmod>
   </url><url>
-    <loc>https://ovideros.github.io/categories/%E6%95%B0%E5%AD%A6/</loc>
+    <loc>http://localhost:1313/categories/%E6%95%B0%E5%AD%A6/</loc>
     <lastmod>2024-07-09T17:02:35+08:00</lastmod>
   </url><url>
-    <loc>https://ovideros.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</loc>
+    <loc>http://localhost:1313/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</loc>
     <lastmod>2024-07-09T17:02:35+08:00</lastmod>
   </url><url>
-    <loc>https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</loc>
+    <loc>http://localhost:1313/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</loc>
     <lastmod>2024-07-09T17:02:35+08:00</lastmod>
   </url><url>
-    <loc>https://ovideros.github.io/example-category/</loc>
+    <loc>http://localhost:1313/example-category/</loc>
   </url><url>
-    <loc>https://ovideros.github.io/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
   </url><url>
-    <loc>https://ovideros.github.io/search/</loc>
+    <loc>http://localhost:1313/search/</loc>
   </url><url>
-    <loc>https://ovideros.github.io/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/</loc>
+    <loc>http://localhost:1313/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/</loc>
   </url>
 </urlset>

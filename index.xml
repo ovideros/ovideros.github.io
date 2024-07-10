@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Ovid的博客</title>
-        <link>https://ovideros.github.io/</link>
+        <link>http://localhost:1313/</link>
         <description>Recent content on Ovid的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 10 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 10 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>归档</title>
-        <link>https://ovideros.github.io/archives/</link>
+        <link>http://localhost:1313/archives/</link>
         <pubDate>Wed, 10 Jul 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://ovideros.github.io/archives/</guid>
+        <guid>http://localhost:1313/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>线性代数基本概念</title>
-        <link>https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
+        <link>http://localhost:1313/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
         <pubDate>Tue, 09 Jul 2024 17:02:35 +0800</pubDate>
         
-        <guid>https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
-        <description>&lt;img src="https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111.png" alt="Featured image of post 线性代数基本概念" /&gt;&lt;h1 id=&#34;基本&#34;&gt;基本
+        <guid>http://localhost:1313/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
+        <description>&lt;img src="http://localhost:1313/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111.png" alt="Featured image of post 线性代数基本概念" /&gt;&lt;h1 id=&#34;基本&#34;&gt;基本
 &lt;/h1&gt;&lt;h2 id=&#34;向量&#34;&gt;向量
 &lt;/h2&gt;&lt;p&gt;向量是线性代数中最基本的概念。一个向量在不同人的眼中，可以有许多种理解。对于物理学家，向量就是既有大小又有方向的量，不在乎起点；对于计算机科学家，向量就是一个数列，储存着一定顺序的数字。对于数学家，向量可以更加抽象，&lt;strong&gt;只要满足“线性”性质，就可以是向量。&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;向量的线性性质&#34;&gt;向量的线性性质
@@ -70,41 +70,41 @@ $$
 &lt;p&gt;特别地，变换前的向量使用基向量线性组合表示，那么变换后的向量也可以用变换后的基向量表示。因此，只要记录变换后的基向量在哪里，就可以完全描述线性变换。&lt;/p&gt;
 &lt;p&gt;在二维空间中，假设变换后的 $\vec{i}$ 变为
 $$
-\left[ \begin{array}{c}
+\begin{bmatrix}
 a\
 c\
-\end{array} \right]
+\end{bmatrix}
 $$
 变换后的 $\vec{j}$ 变为变为
 $$
-\left[ \begin{array}{c}
+\begin{bmatrix}
 b\
 d\
-\end{array} \right]
+\end{bmatrix}
 $$那么，将这两个向量按列拼起来，就可以得到 2 乘 2 的矩阵
 $$
-\left[ \begin{matrix}
+\begin{bmatrix}
 a&amp;amp;		b\
 c&amp;amp;		d\
-\end{matrix} \right]
+\end{bmatrix}
 $$
 这就是矩阵的由来。&lt;/p&gt;
 &lt;h2 id=&#34;矩阵的含义&#34;&gt;矩阵的含义
 &lt;/h2&gt;&lt;p&gt;正如前面所说，矩阵表示线性变换，因此有
 $$
-\left[ \begin{matrix}
+\begin{bmatrix}
 a&amp;amp;		b\
 c&amp;amp;		d\
-\end{matrix} \right] \left[ \begin{array}{c}
+\end{bmatrix} \begin{bmatrix}
 x\
 y\
-\end{array} \right] =x\left[ \begin{array}{c}
+\end{bmatrix} =x \begin{bmatrix}
 a\
 c\
-\end{array} \right] +y\left[ \begin{array}{c}
+\end{bmatrix} +y\begin{bmatrix}
 b\
 d\
-\end{array} \right]
+\end{bmatrix}
 $$
 这代表原先空间中某一向量 (x, y)，变换过后的坐标，可以通过 x 数乘变换后的  $\vec{i}$ 加上 y 乘以变换后的 $\vec{j}$ 得到。因此，可以得到矩阵乘以向量的计算公式。不难看出，这也可以推广到 3 维空间或者更高维的情况。&lt;/p&gt;
 &lt;h2 id=&#34;矩阵乘以矩阵&#34;&gt;矩阵乘以矩阵
@@ -124,27 +124,41 @@ $$
 (AB)C=A(BC)
 $$
 这个式子要怎么证明呢？数值上看上去比较复杂，但是如何从几何的角度，这相当显然。因为先 $C$，再经历 $AB$ 等效的线性变换，与先经历 $BC$ 的等效变换，再经历 $A$ 的线性变换，显然是相等的。&lt;/p&gt;
+&lt;h1 id=&#34;列空间和秩&#34;&gt;列空间和秩
+&lt;/h1&gt;&lt;h2 id=&#34;列空间&#34;&gt;列空间
+&lt;/h2&gt;&lt;p&gt;一个矩阵可以看成是许多个列拼起来得到的。这时候，我们考虑每一个列中的向量，它们张成的空间是什么呢？事实上，这些列向量也就是变换后的基底，因此，这些列向量的线性组合，就是经过矩阵的线性变换之后，所得到的新的空间。&lt;/p&gt;
+&lt;h2 id=&#34;秩&#34;&gt;秩
+&lt;/h2&gt;&lt;p&gt;对于不同的矩阵，它的列空间不一样。对于这些不同的列空间，最重要的区别就是维度。例如，对于这个矩阵
+$$\begin{bmatrix}
+1&amp;amp;		4\
+2&amp;amp;		8\
+\end{bmatrix} $$
+显然，它的第一列和第二列线性相关，因此，它的列空间是一条直线，维度为 1。此时，为了衡量列空间的维度，我们称这个矩阵的秩为 1。&lt;/p&gt;
+&lt;p&gt;事实上，在严格的线性代数教材中，会证明一个矩阵的各行组成的向量组的秩和各列向量组成的向量组的秩是一样的。&lt;/p&gt;
+&lt;h2 id=&#34;满秩&#34;&gt;满秩
+&lt;/h2&gt;&lt;p&gt;如果一个矩阵的秩就等于该矩阵的维度，就表示该经历该线性变换后，维度没有发生变化。这时候，可以称该矩阵满秩。&lt;/p&gt;
 &lt;h1 id=&#34;线性方程组&#34;&gt;线性方程组
 &lt;/h1&gt;&lt;h2 id=&#34;线性方程组的表示&#34;&gt;线性方程组的表示
 &lt;/h2&gt;&lt;p&gt;如果说为什么线性代数能够在这么多理工科中拥有广泛的应用，最基本的，就是因为线性代数可以方便地求解多元一次方程组，并且采用一种简单、一致的方法求解。&lt;/p&gt;
 &lt;p&gt;$$
 \begin{cases}
 ax+by=e\
-cx+dy=f\
-\end{cases}\Leftrightarrow \left[ \begin{matrix}
+cx+dy=f
+\end{cases}\Leftrightarrow
+\begin{bmatrix}
 a&amp;amp;		b\
 c&amp;amp;		d\
-\end{matrix} \right] \left[ \begin{array}{c}
+\end{bmatrix}  \begin{bmatrix}
 x\
 y\
-\end{array} \right] =\left[ \begin{array}{c}
+\end{bmatrix} = \begin{bmatrix}
 e\
 f\
-\end{array} \right]
+\end{bmatrix}
 $$
 如公式，二元一次方程组可以表示为一个二维向量乘以 2 x 2 矩阵，得到了新的二维向量。从线性变换的角度，已知某个向量变换后的位置，需要求出变换之前所在的位置。&lt;/p&gt;
-&lt;h2 id=&#34;线性方程组的解法一&#34;&gt;线性方程组的解法一
-&lt;/h2&gt;&lt;p&gt;如果这个变换之后的维度与变换之前的维度相同，并且矩阵是方阵，那么问题相对简单。此时，只需要找到该变换的逆变换，将逆变换作用到变换后的向量，就可以得到变换前向量的位置。这就好像是倒放一样，从后面的向量反向推出之前的向量。使用公式来表示，也就是
+&lt;h2 id=&#34;满秩线性方程组的解法&#34;&gt;满秩线性方程组的解法
+&lt;/h2&gt;&lt;p&gt;如果这个变换之后的维度与变换之前的维度相同（也就满秩），并且矩阵是方阵，那么问题相对简单。此时，只需要找到该变换的逆变换，将逆变换作用到变换后的向量，就可以得到变换前向量的位置。这就好像是倒放一样，从后面的向量反向推出之前的向量。使用公式来表示，也就是
 $$
 x=A^{-1}b
 $$&lt;/p&gt;
@@ -154,51 +168,75 @@ $$
 A^{-1}A=I
 $$
 通过这个式子，如果想要计算 $A$ 的逆矩阵，有一个方法：通过高斯消元法，想办法将 $A$ 变为 $I$，同时，在 $A$ 矩阵右侧并上单位矩阵 $I$，每一次高斯消元法时，同时对一整行处理。这样，当你把 $A$ 变为 $I$ 时，可以看成给 $A$ 做了一次线性变换，这个变换就是 $A$ 的逆。同时，这个变换也记录在了原先 $A$ 右侧的单位矩阵上，通过变换，它变成了 $A^{-1}$。&lt;/p&gt;
-&lt;h2 id=&#34;列空间&#34;&gt;列空间
-&lt;/h2&gt;&lt;h2 id=&#34;零空间&#34;&gt;零空间
+&lt;h2 id=&#34;零空间&#34;&gt;零空间
 &lt;/h2&gt;&lt;p&gt;上述讨论的，都是不改变空间维数的变换。如果空间维数改变，就不能通过上述方法求解了。这时候应该怎么办呢？&lt;/p&gt;
 &lt;p&gt;首先考虑较为简单的情况：一个线性变换将二维平面压成了一维直线。这种维度上的缺失意味着什么呢？这意味着原先肯定有多个点，在变换后被压成了同一个点。否则，不可能让维度发生变化。&lt;/p&gt;
-&lt;p&gt;重点关注那些被压到原点的向量。这些向量可以被线性变换后，都变成了 0。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111.png&#34;
-	width=&#34;2445&#34;
-	height=&#34;1180&#34;
-	srcset=&#34;https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111_hu87de9121abb1737434a06c4b544edc20_178388_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111_hu87de9121abb1737434a06c4b544edc20_178388_1024x0_resize_box_3.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片 1&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;207&#34;
-		data-flex-basis=&#34;497px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;p&gt;这同时意味着该矩阵的秩为 1，不满秩。因此，肯定存在某一个列向量线性组合为 0。
+$$
+k_1\vec{x_1}+k_2\vec{x_2}=0
+$$
+同时，该线性组合的系数也可以任意变化，因为等式右侧为 0，两边可以任意乘以系数。那么，考虑如果画出
+$$
+\begin{bmatrix} k_1\ k_2 \end{bmatrix}​
+$$
+那么，会组成一条直线。这条直线上每一个向量，经过线性变换，都会到达原点。因此，称这条直线为矩阵的零空间。&lt;/p&gt;
+&lt;p&gt;更一般地，如果有一个三阶矩阵秩为 2，就代表将三维空间压缩成二维平面。此时，零空间也是过原点的一条直线。如果有一个三阶矩阵秩为 1，就代表将三维空间压缩成一条一维直线，这时候，零空间是经过原点的一个平面。&lt;/p&gt;
+&lt;p&gt;可以发现，矩阵的秩加上零空间的维度，总等于矩阵本身的列数。或者说，矩阵的列空间的秩加上零空间的秩，等于列数。这是线性代数基本定理。&lt;/p&gt;
+&lt;h2 id=&#34;齐次线性方程组的解法&#34;&gt;齐次线性方程组的解法
+&lt;/h2&gt;&lt;p&gt;如果线性方程组的常数项为 0，就是齐次的情况。这时候，求线性方程组的解，就是寻找矩阵的零空间。这可以通过高斯消元法化简，进而表示出零空间的基底，从而写出零空间的表达式。&lt;/p&gt;
+&lt;h2 id=&#34;非齐次线性方程组的解法&#34;&gt;非齐次线性方程组的解法
+&lt;/h2&gt;&lt;p&gt;对于非齐次线性方程组，首先需要经历齐次线性方程组同样的求解步骤，先求解出零空间。然后，通过代入值，可以找到一组特解。&lt;/p&gt;
+&lt;p&gt;此时，非齐次特解加上齐次通解，因为线性的性质，所以总满足原等式。所以，非齐次线性方程组的解也就是非齐次特解加上齐次通解。&lt;/p&gt;
+&lt;h1 id=&#34;行列式&#34;&gt;行列式
+&lt;/h1&gt;&lt;h2 id=&#34;行列式的由来&#34;&gt;行列式的由来
+&lt;/h2&gt;&lt;p&gt;很多国内教材第一章就讲行列式，然而，我却选择在此处才讲到行列式。因为只有通过线性变换的视角，行列式才更有意义。&lt;/p&gt;
+&lt;p&gt;对于不同的线性变换，有的线性变换是扩张性的，将网格向外拉伸；有的线性变换是收缩性的，将网格向内挤压。应该如何描述这两者情况的不同呢？基于线性性质，可以考虑某一块面积在变换前后的大小之比。如果变换后面积变大，那么是扩张性的；如果面积变小，那么是收缩性的。&lt;/p&gt;
+&lt;p&gt;对于不同的网格区域，因为是线性变换，所以可以知道，这些区域面积变化的比例是一样的。就算对于一个不规则区域，也可以利用微积分的思想，将其分为许多不同的小块，每个小块的面积变化比例相同。&lt;/p&gt;
+&lt;h2 id=&#34;行列式的性质&#34;&gt;行列式的性质
+&lt;/h2&gt;&lt;p&gt;行列式有几个基本的性质：
+1.
+$$
+\det(\vec{u},\vec{v})=\det(\vec{u}+k\vec{v},\vec{v})
+$$ 在几何上，这代表平行四边形的一边可以在其直线上移动，不改变面积的大小。又称为平移不变形。
+2. $$
+\det(\vec{u_1}+k\vec{u_2},\vec{v})=\det(\vec{u},\vec{v})+k\det(\vec{u_2},\vec{v})
+$$
+这表示的是行列式的线性性质。可以将其中一个向量分成多个向量的和，再分别计算这些向量和另一个向量的行列式，最后相加。
+3. $$
+\begin{vmatrix}1&amp;amp;0\0&amp;amp;1\end{vmatrix}=1​
+$$ 这也是二维面积的最初定义。对于更高维的情况，也就是单位矩阵的行列式为 1。&lt;/p&gt;
+&lt;h2 id=&#34;行列式的计算&#34;&gt;行列式的计算
+&lt;/h2&gt;&lt;p&gt;通过以上三条性质，可以证明
+$$
+\begin{bmatrix}a&amp;amp;b\c&amp;amp;d\end{bmatrix}​=ad-bc
+$$
+这也就是二维行列式的计算公式。对于三维行列式，可以通过行列式的性质，化简为多个二维行列式。这又被成为行列式的展开。&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>关于</title>
-        <link>https://ovideros.github.io/about/</link>
+        <link>http://localhost:1313/about/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://ovideros.github.io/about/</guid>
+        <guid>http://localhost:1313/about/</guid>
         <description>&lt;p&gt;博客入门，试着搭建博客，
 分享一下CS方向的知识。&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>搜索</title>
-        <link>https://ovideros.github.io/search/</link>
+        <link>http://localhost:1313/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://ovideros.github.io/search/</guid>
+        <guid>http://localhost:1313/search/</guid>
         <description></description>
         </item>
         <item>
         <title>友情链接</title>
-        <link>https://ovideros.github.io/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/</link>
+        <link>http://localhost:1313/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://ovideros.github.io/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/</guid>
+        <guid>http://localhost:1313/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/</guid>
         <description>&lt;p&gt;下面有一些有用的链接。&lt;/p&gt;
 </description>
         </item>
