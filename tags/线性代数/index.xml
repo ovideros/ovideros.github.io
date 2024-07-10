@@ -12,7 +12,7 @@
         <pubDate>Tue, 09 Jul 2024 17:02:35 +0800</pubDate>
         
         <guid>https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
-        <description>&lt;h1 id=&#34;基本&#34;&gt;基本
+        <description>&lt;img src="https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111.png" alt="Featured image of post 线性代数基本概念" /&gt;&lt;h1 id=&#34;基本&#34;&gt;基本
 &lt;/h1&gt;&lt;h2 id=&#34;向量&#34;&gt;向量
 &lt;/h2&gt;&lt;p&gt;向量是线性代数中最基本的概念。一个向量在不同人的眼中，可以有许多种理解。对于物理学家，向量就是既有大小又有方向的量，不在乎起点；对于计算机科学家，向量就是一个数列，储存着一定顺序的数字。对于数学家，向量可以更加抽象，&lt;strong&gt;只要满足“线性”性质，就可以是向量。&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;向量的线性性质&#34;&gt;向量的线性性质
@@ -151,6 +151,20 @@ $$
 &lt;/h2&gt;&lt;p&gt;上述讨论的，都是不改变空间维数的变换。如果空间维数改变，就不能通过上述方法求解了。这时候应该怎么办呢？&lt;/p&gt;
 &lt;p&gt;首先考虑较为简单的情况：一个线性变换将二维平面压成了一维直线。这种维度上的缺失意味着什么呢？这意味着原先肯定有多个点，在变换后被压成了同一个点。否则，不可能让维度发生变化。&lt;/p&gt;
 &lt;p&gt;重点关注那些被压到原点的向量。这些向量可以被线性变换后，都变成了 0。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111.png&#34;
+	width=&#34;2445&#34;
+	height=&#34;1180&#34;
+	srcset=&#34;https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111_hu87de9121abb1737434a06c4b544edc20_178388_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111_hu87de9121abb1737434a06c4b544edc20_178388_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;图片 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;207&#34;
+		data-flex-basis=&#34;497px&#34;
+	
+&gt;&lt;/p&gt;
 </description>
         </item>
         
