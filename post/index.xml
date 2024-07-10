@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Ovid的博客</title>
-        <link>http://localhost:1313/post/</link>
+        <link>https://ovideros.github.io/post/</link>
         <description>Recent content in Posts on Ovid的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 09 Jul 2024 17:02:35 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 09 Jul 2024 17:02:35 +0800</lastBuildDate><atom:link href="https://ovideros.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>线性代数基本概念</title>
-        <link>http://localhost:1313/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
+        <link>https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
         <pubDate>Tue, 09 Jul 2024 17:02:35 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
-        <description>&lt;img src="http://localhost:1313/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111.png" alt="Featured image of post 线性代数基本概念" /&gt;&lt;h1 id=&#34;基本&#34;&gt;基本
+        <guid>https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
+        <description>&lt;img src="https://ovideros.github.io/p/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/cover111.png" alt="Featured image of post 线性代数基本概念" /&gt;&lt;h1 id=&#34;基本&#34;&gt;基本
 &lt;/h1&gt;&lt;h2 id=&#34;向量&#34;&gt;向量
 &lt;/h2&gt;&lt;p&gt;向量是线性代数中最基本的概念。一个向量在不同人的眼中，可以有许多种理解。对于物理学家，向量就是既有大小又有方向的量，不在乎起点；对于计算机科学家，向量就是一个数列，储存着一定顺序的数字。对于数学家，向量可以更加抽象，&lt;strong&gt;只要满足“线性”性质，就可以是向量。&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;向量的线性性质&#34;&gt;向量的线性性质
@@ -62,22 +62,20 @@ $$
 &lt;p&gt;特别地，变换前的向量使用基向量线性组合表示，那么变换后的向量也可以用变换后的基向量表示。因此，只要记录变换后的基向量在哪里，就可以完全描述线性变换。&lt;/p&gt;
 &lt;p&gt;在二维空间中，假设变换后的 $\vec{i}$ 变为
 $$
-\begin{bmatrix}
-a\
-c\
+\begin{bmatrix}a \\  c
 \end{bmatrix}
 $$
 变换后的 $\vec{j}$ 变为变为
 $$
 \begin{bmatrix}
-b\
-d\
+b\\
+d
 \end{bmatrix}
 $$那么，将这两个向量按列拼起来，就可以得到 2 乘 2 的矩阵
 $$
 \begin{bmatrix}
-a&amp;amp;		b\
-c&amp;amp;		d\
+a&amp;amp;		b\\
+c&amp;amp;		d
 \end{bmatrix}
 $$
 这就是矩阵的由来。&lt;/p&gt;
@@ -85,17 +83,17 @@ $$
 &lt;/h2&gt;&lt;p&gt;正如前面所说，矩阵表示线性变换，因此有
 $$
 \begin{bmatrix}
-a&amp;amp;		b\
-c&amp;amp;		d\
+a&amp;amp;		b\\
+c&amp;amp;		d\\
 \end{bmatrix} \begin{bmatrix}
-x\
-y\
+x\\
+y\\
 \end{bmatrix} =x \begin{bmatrix}
-a\
-c\
+a\\
+c\\
 \end{bmatrix} +y\begin{bmatrix}
-b\
-d\
+b\\
+d\\
 \end{bmatrix}
 $$
 这代表原先空间中某一向量 (x, y)，变换过后的坐标，可以通过 x 数乘变换后的  $\vec{i}$ 加上 y 乘以变换后的 $\vec{j}$ 得到。因此，可以得到矩阵乘以向量的计算公式。不难看出，这也可以推广到 3 维空间或者更高维的情况。&lt;/p&gt;
@@ -122,8 +120,8 @@ $$
 &lt;h2 id=&#34;秩&#34;&gt;秩
 &lt;/h2&gt;&lt;p&gt;对于不同的矩阵，它的列空间不一样。对于这些不同的列空间，最重要的区别就是维度。例如，对于这个矩阵
 $$\begin{bmatrix}
-1&amp;amp;		4\
-2&amp;amp;		8\
+1&amp;amp;		4\\
+2&amp;amp;		8\\
 \end{bmatrix} $$
 显然，它的第一列和第二列线性相关，因此，它的列空间是一条直线，维度为 1。此时，为了衡量列空间的维度，我们称这个矩阵的秩为 1。&lt;/p&gt;
 &lt;p&gt;事实上，在严格的线性代数教材中，会证明一个矩阵的各行组成的向量组的秩和各列向量组成的向量组的秩是一样的。&lt;/p&gt;
@@ -134,18 +132,18 @@ $$\begin{bmatrix}
 &lt;/h2&gt;&lt;p&gt;如果说为什么线性代数能够在这么多理工科中拥有广泛的应用，最基本的，就是因为线性代数可以方便地求解多元一次方程组，并且采用一种简单、一致的方法求解。&lt;/p&gt;
 &lt;p&gt;$$
 \begin{cases}
-ax+by=e\
+ax+by=e\\
 cx+dy=f
 \end{cases}\Leftrightarrow
 \begin{bmatrix}
-a&amp;amp;		b\
-c&amp;amp;		d\
+a&amp;amp;		b\\
+c&amp;amp;		d\\
 \end{bmatrix}  \begin{bmatrix}
-x\
-y\
+x\\
+y\\
 \end{bmatrix} = \begin{bmatrix}
-e\
-f\
+e\\
+f\\
 \end{bmatrix}
 $$
 如公式，二元一次方程组可以表示为一个二维向量乘以 2 x 2 矩阵，得到了新的二维向量。从线性变换的角度，已知某个向量变换后的位置，需要求出变换之前所在的位置。&lt;/p&gt;
@@ -169,7 +167,7 @@ k_1\vec{x_1}+k_2\vec{x_2}=0
 $$
 同时，该线性组合的系数也可以任意变化，因为等式右侧为 0，两边可以任意乘以系数。那么，考虑如果画出
 $$
-\begin{bmatrix} k_1\ k_2 \end{bmatrix}​
+\begin{bmatrix} k_1\\ k_2 \end{bmatrix}​
 $$
 那么，会组成一条直线。这条直线上每一个向量，经过线性变换，都会到达原点。因此，称这条直线为矩阵的零空间。&lt;/p&gt;
 &lt;p&gt;更一般地，如果有一个三阶矩阵秩为 2，就代表将三维空间压缩成二维平面。此时，零空间也是过原点的一条直线。如果有一个三阶矩阵秩为 1，就代表将三维空间压缩成一条一维直线，这时候，零空间是经过原点的一个平面。&lt;/p&gt;
@@ -195,12 +193,12 @@ $$ 在几何上，这代表平行四边形的一边可以在其直线上移动�
 $$
 这表示的是行列式的线性性质。可以将其中一个向量分成多个向量的和，再分别计算这些向量和另一个向量的行列式，最后相加。
 3. $$
-\begin{vmatrix}1&amp;amp;0\0&amp;amp;1\end{vmatrix}=1​
+\begin{vmatrix}1&amp;amp;0\\0&amp;amp;1\end{vmatrix}=1​
 $$ 这也是二维面积的最初定义。对于更高维的情况，也就是单位矩阵的行列式为 1。&lt;/p&gt;
 &lt;h2 id=&#34;行列式的计算&#34;&gt;行列式的计算
 &lt;/h2&gt;&lt;p&gt;通过以上三条性质，可以证明
 $$
-\begin{bmatrix}a&amp;amp;b\c&amp;amp;d\end{bmatrix}​=ad-bc
+\begin{bmatrix}a&amp;amp;b\\c&amp;amp;d\end{bmatrix}​=ad-bc
 $$
 这也就是二维行列式的计算公式。对于三维行列式，可以通过行列式的性质，化简为多个二维行列式。这又被成为行列式的展开。&lt;/p&gt;
 </description>

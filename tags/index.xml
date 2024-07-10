@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on Ovid的博客</title>
-        <link>http://localhost:1313/tags/</link>
+        <link>https://ovideros.github.io/tags/</link>
         <description>Recent content in Tags on Ovid的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 09 Jul 2024 17:02:35 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 09 Jul 2024 17:02:35 +0800</lastBuildDate><atom:link href="https://ovideros.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>线性代数</title>
-        <link>http://localhost:1313/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</link>
+        <link>https://ovideros.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</link>
         <pubDate>Tue, 09 Jul 2024 17:02:35 +0800</pubDate>
         
-        <guid>http://localhost:1313/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</guid>
+        <guid>https://ovideros.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</guid>
         <description></description>
         </item>
         
