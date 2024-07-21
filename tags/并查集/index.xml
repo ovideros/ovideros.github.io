@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>并查集 on Ovid的博客</title>
+        <link>https://ovideros.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/</link>
+        <description>Recent content in 并查集 on Ovid的博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sun, 21 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CS61B week6 学习笔记</title>
+        <link>https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Sun, 21 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;img src="https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1.png" alt="Featured image of post CS61B week6 学习笔记" /&gt;&lt;h1 id=&#34;lec14-disjoint-sets&#34;&gt;lec14 Disjoint Sets
+&lt;/h1&gt;&lt;p&gt;这个数据结构应该有两个操作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;connect(x, y)&lt;/code&gt; 连接 x 和 y。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;isConnected(x, y)&lt;/code&gt; 判断 x 和 y 是否是连接的。同时，连接可能是间接的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;为了实现这个数据结构，重点考虑不同元素是否在同一组当中。一开始，每个元素都是不同的组。如果将两个连接起来，就会把组连接起来。不用考虑具体的连接。&lt;/p&gt;
+&lt;h2 id=&#34;idea-1&#34;&gt;Idea 1
+&lt;/h2&gt;&lt;p&gt;使用集合的列表。但是这样查找起来会很慢。例如，如果要判断 5 和 6 是否连接，必须遍历列表，消耗时间为 $\Theta(n)$。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;实现方法&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;constructor&lt;/code&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;connect&lt;/code&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;isConnected&lt;/code&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;ListOfSetsDS&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;idea-2&#34;&gt;Idea 2
+&lt;/h2&gt;&lt;p&gt;使用一个数组，每个索引对应元素，数组中每个相同的值对应同一个组。这些值只要相同就行，不关心具体数值。现在，因为数组读取特定元素只是常数，所以 &lt;code&gt;isConnected&lt;/code&gt; 方法为 $O(1)$。然而，&lt;code&gt;connect&lt;/code&gt; 方法还是较慢，需要遍历数组。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;实现方法&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;constructor&lt;/code&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;connect&lt;/code&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;isConnected&lt;/code&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;ListOfSetsDS&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;QuickFindDS&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(1)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;idea-3&#34;&gt;Idea 3
+&lt;/h2&gt;&lt;p&gt;数组中，记录每一个节点的父节点。如果值为-1，则代表为父节点。&lt;/p&gt;
+&lt;p&gt;在改变连接的时候，只需要修改一个节点就可以。但是，如果树很长，要“爬树”，需要消耗较长时间 $O(n)$；同时，最坏情况下，&lt;code&gt;isConnected&lt;/code&gt; 也需要消耗 $O(n)$。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;实现方法&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;constructor&lt;/code&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;connect&lt;/code&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;isConnected&lt;/code&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;ListOfSetsDS&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;QuickFindDS&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(1)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;QuickUnionDS&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;idea-4&#34;&gt;Idea 4
+&lt;/h2&gt;&lt;p&gt;总是将较小的树放在较大的树下面，通过重量来选择。同时，负数的绝对值大小代表成员个数。保证较少元素的树合并到较大元素的树。&lt;/p&gt;
+&lt;p&gt;可以证明，树的高度是 $\Theta(\log(n))$。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;实现方法&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;constructor&lt;/code&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;connect&lt;/code&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;code&gt;isConnected&lt;/code&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;ListOfSetsDS&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;QuickFindDS&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(1)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;QuickUnionDS&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(n)$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;WeightedQuickUnionDs&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$\Theta(n)$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(\log(n))$&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;$O(\log(n))$&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;idea-5&#34;&gt;Idea 5
+&lt;/h2&gt;&lt;p&gt;在此基础上，如果找到了一些节点的最终根节点，那么就可以把这些节点的 parent 设置为根节点，这样会更快。&lt;/p&gt;
+&lt;p&gt;最初的操作可能好事，但最后会相当接近常数。&lt;/p&gt;
+&lt;h1 id=&#34;lec15-asymptotics-ii&#34;&gt;lec15 Asymptotics II
+&lt;/h1&gt;&lt;h2 id=&#34;例子-2&#34;&gt;例子 2
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;static&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;printParty&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;		&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;		&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;hello&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;		&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;一种方法是利用画图，可以夹在两条直线之间。&lt;/p&gt;
+&lt;p&gt;另一种方法是 $1+2+4+\ldots+N=2N-1$。分析的时候需要注意，这与 $1+2+3+&amp;hellip;+Q=\Theta(Q)$ 不同。&lt;/p&gt;
+&lt;h2 id=&#34;递归&#34;&gt;递归
+&lt;/h2&gt;&lt;p&gt;对于一些递归的问题，如果每次需要调用两次 n-1 的函数，那么复杂度为 $2^N$。&lt;/p&gt;
+&lt;p&gt;对应公式为 $1+2+4+\ldots+2^{N-1}=2^N-1$。&lt;/p&gt;
+&lt;h2 id=&#34;二分搜索&#34;&gt;二分搜索
+&lt;/h2&gt;&lt;p&gt;对于排序好的数组，每次查找中间的元素，根据大小再次左右分。对于最不利的大小为 $N$ 情况，需要消耗 $\log(N)$。因此，时间复杂度为 $O(\log(n))$。&lt;/p&gt;
+&lt;h2 id=&#34;排序&#34;&gt;排序
+&lt;/h2&gt;&lt;h3 id=&#34;选择排序&#34;&gt;选择排序
+&lt;/h3&gt;&lt;p&gt;涉及到等差数列的求和，复杂度为 $O(n^2)$。&lt;/p&gt;
+&lt;h3 id=&#34;合并数组&#34;&gt;合并数组
+&lt;/h3&gt;&lt;p&gt;对于两个有序数组，将它们合并只需要 $\Theta(n)$。&lt;/p&gt;
+&lt;h3 id=&#34;合并排序&#34;&gt;合并排序
+&lt;/h3&gt;&lt;p&gt;可以把原先的数组分成两个数组，对于两个排序后的数组合并。这样不断二分大小，最终二分的次数是 $\log(n)$。每一层的合并需要 $\Theta(n)$。所以，最后的复杂度为 $\Theta(n\log(n))$。&lt;/p&gt;
+&lt;h1 id=&#34;lec16-adts-sets-maps-bsts&#34;&gt;lec16 ADTs, Sets, Maps, BSTs
+&lt;/h1&gt;&lt;h2 id=&#34;抽象数据类型adt&#34;&gt;抽象数据类型（ADT）
+&lt;/h2&gt;&lt;h3 id=&#34;解释&#34;&gt;解释
+&lt;/h3&gt;&lt;p&gt;类比 Java，ADT 就好像是接口，不关心具体的实现方式，只要满足 API 就行。因此，对于一种 ADT 可以有多种实现。&lt;/p&gt;
+&lt;p&gt;不过，不同的实现方式有性能上的差异。例如，对于栈来说，只支持推入和弹出的操作，这时候链表和数组的实现方式带来的复杂度一样（不考虑改变数组大小的话）。&lt;/p&gt;
+&lt;p&gt;又例如，对于 GrabBag ADT，支持以下操作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;insert (int x)&lt;/code&gt;：将 x 插入。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int remove()&lt;/code&gt;：随机从袋子中移除一个物品。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int sample()&lt;/code&gt;：随机观察袋子中每个物品的值（不删除）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int size()&lt;/code&gt;：袋子中物品的数量
+此时，因为考虑到需要随机读取元素，因此数组会是更好的实现方式，能带来 $\Theta(1)$ 的性能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;java-内置-adt&#34;&gt;Java 内置 ADT
+&lt;/h3&gt;&lt;p&gt;大多数有用的接口都在 &lt;code&gt;java.util&lt;/code&gt; 中。例如，有 List，Set，Map 等等。同时，Java 也提供了许多有用的实现方式。这一节会学习 TreeSet 和 TreeMap。&lt;/p&gt;
+&lt;h2 id=&#34;二叉树bst&#34;&gt;二叉树（BST）
+&lt;/h2&gt;&lt;h3 id=&#34;引入&#34;&gt;引入
+&lt;/h3&gt;&lt;p&gt;对于线性表而言，查找一个元素需要消耗 $\Theta(n)$ 的时间。如何提升性能呢？可以考虑让指针指向线性表中间的元素，然后翻转左侧的指针。接着，对于左右剩下的部分，也可以做类似的处理。这样递归下去，就可以形成二叉树。&lt;/p&gt;
+&lt;h3 id=&#34;定义&#34;&gt;定义
+&lt;/h3&gt;&lt;p&gt;树由以下元素组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一些节点的集合。&lt;/li&gt;
+&lt;li&gt;一些连接节点的边。同时，两个节点之间有且仅有一条路径。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1_huef42b8e9271cc82ae22061136c29c600_60833_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1_huef42b8e9271cc82ae22061136c29c600_60833_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;树的示意图&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;将没有父节点的节点成为根（root），将没有子节点的节点称为叶节点（leaf）。在有根的二叉树中，每个节点拥有 0、1 或 2 个子节点。&lt;/p&gt;
+&lt;p&gt;对于二叉树来说，对于每个节点，都有以下性质：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;左侧子节点的值比当前节点的值小&lt;/li&gt;
+&lt;li&gt;右侧子节点的值比当前节点的值大
+同时，这种排序方式需要是明确的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;搜索&#34;&gt;搜索
+&lt;/h3&gt;&lt;p&gt;对于二叉树，搜索起来相当简单。如果当前节点的值等于搜索值，就返回。不然，如果搜索值小于当前值，就在左侧子树上搜索；否则在右侧搜索。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree2.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree2_hu70348a93f752ebb87d20f446ddb2c28a_63876_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree2_hu70348a93f752ebb87d20f446ddb2c28a_63876_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;二叉树搜索&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以发现，对于“茂盛”的二叉树，最差情况下搜索只需要 $\Theta(\log(n))$。在实际程序中，这个性能是够用的。&lt;/p&gt;
+&lt;h3 id=&#34;插入&#34;&gt;插入
+&lt;/h3&gt;&lt;p&gt;搜索当前的插入值。如果找到了当前值，就返回。否则，就需要创建新节点，并且设置新的指针。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree3.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree3_hu0aafefb2847002877110f1e8eceee632_86332_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree3_hu0aafefb2847002877110f1e8eceee632_86332_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;二叉树插入&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在上面的事例代码中，需要注意，不要写成右侧的代码。右侧代码并没有真正相信递归，没有处理好 base case，只会增加复杂性。实际上，如果没找到节点，就返回新创建节点的指针；如果找到了，就直接返回 T，也就是不改变当前树。这样才是更高效的做法。&lt;/p&gt;
+&lt;h3 id=&#34;删除&#34;&gt;删除
+&lt;/h3&gt;&lt;p&gt;二叉树的删除分为三种情况：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;要删除的节点没有子节点&lt;/li&gt;
+&lt;li&gt;要删除的节点有一个子节点&lt;/li&gt;
+&lt;li&gt;要删除的节点有两个子节点&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;对于第一种情况，很明显只需要将父节点的指针删去即可。&lt;/p&gt;
+&lt;p&gt;对于第二种情况，需要保持二叉树的特性。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree4.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree4_hu39df9bdc80572d987b76f8eb2cbc8491_63707_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree4_hu39df9bdc80572d987b76f8eb2cbc8491_63707_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;二叉树删除情况二&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在这个例子中，为了删去 flat 节点，可以发现 flat 的各个子节点都是大于 flat 的父节点——dog，因此可以直接将 dog 指向 flat 的子节点 elf，满足二叉树的特性。&lt;/p&gt;
+&lt;p&gt;对于第三种情况，在下图中删除 k 节点。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree5.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree5_hu1285b5f485529d3a079e5ba6de72a02f_43227_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree5_hu1285b5f485529d3a079e5ba6de72a02f_43227_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;二叉树删除情况三&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这时候，为了方便起见，可以考虑保留 k，只是更换当中的值。那么，这个新的值必须要比左侧所有节点的值大，比右侧所有节点的值小。&lt;/p&gt;
+&lt;p&gt;通过观察发现，左子树的最大值 g 和右子树的最小值 m 符合要求，因此可以选取其中之一更换 k 的值。然后，删除 g 或 m。此时，如果要被删除的节点有两个子节点，就不满足上面最小值或最大值的情况，因此该节点只能有 0 个或 1 个子节点，删除它也就变成了前两种情况。&lt;/p&gt;
+&lt;h3 id=&#34;应用&#34;&gt;应用
+&lt;/h3&gt;&lt;p&gt;二叉搜索树可以实现集合和字典。因为二叉树没有重复元素，因此满足了集合和字典的要求。&lt;/p&gt;
+&lt;p&gt;对于集合，只用将元素作为二叉树的值。对于字典，只需要同时储存 key 和 value 即可。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

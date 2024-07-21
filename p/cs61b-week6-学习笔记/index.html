@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="包括第六周讲座内容">
+<title>CS61B week6 学习笔记</title>
+
+<link rel='canonical' href='https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.80736d734333c1fab997c2536137596072eb0aea65d8215e1cc0b6e1a6c32a63.css"><meta property='og:title' content="CS61B week6 学习笔记">
+<meta property='og:description' content="包括第六周讲座内容">
+<meta property='og:url' content='https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='Ovid的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cs61b' /><meta property='article:tag' content='数据结构与算法' /><meta property='article:tag' content='java' /><meta property='article:tag' content='并查集' /><meta property='article:tag' content='树' /><meta property='article:published_time' content='2024-07-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-07-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1.png' />
+<meta name="twitter:title" content="CS61B week6 学习笔记">
+<meta name="twitter:description" content="包括第六周讲座内容"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c9e0ebd40c49c45c61eedb3963d2dba_335916_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😇</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Ovid的博客</a></h1>
+            <h2 class="site-description">学习中...</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/ovideros'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li  class='current' >
+            <a href='/post/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lec14-disjoint-sets">lec14 Disjoint Sets</a>
+      <ol>
+        <li><a href="#idea-1">Idea 1</a></li>
+        <li><a href="#idea-2">Idea 2</a></li>
+        <li><a href="#idea-3">Idea 3</a></li>
+        <li><a href="#idea-4">Idea 4</a></li>
+        <li><a href="#idea-5">Idea 5</a></li>
+      </ol>
+    </li>
+    <li><a href="#lec15-asymptotics-ii">lec15 Asymptotics II</a>
+      <ol>
+        <li><a href="#例子-2">例子 2</a></li>
+        <li><a href="#递归">递归</a></li>
+        <li><a href="#二分搜索">二分搜索</a></li>
+        <li><a href="#排序">排序</a>
+          <ol>
+            <li><a href="#选择排序">选择排序</a></li>
+            <li><a href="#合并数组">合并数组</a></li>
+            <li><a href="#合并排序">合并排序</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#lec16-adts-sets-maps-bsts">lec16 ADTs, Sets, Maps, BSTs</a>
+      <ol>
+        <li><a href="#抽象数据类型adt">抽象数据类型（ADT）</a>
+          <ol>
+            <li><a href="#解释">解释</a></li>
+            <li><a href="#java-内置-adt">Java 内置 ADT</a></li>
+          </ol>
+        </li>
+        <li><a href="#二叉树bst">二叉树（BST）</a>
+          <ol>
+            <li><a href="#引入">引入</a></li>
+            <li><a href="#定义">定义</a></li>
+            <li><a href="#搜索">搜索</a></li>
+            <li><a href="#插入">插入</a></li>
+            <li><a href="#删除">删除</a></li>
+            <li><a href="#应用">应用</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1_huef42b8e9271cc82ae22061136c29c600_60833_800x0_resize_box_3.png"
+                        srcset="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1_huef42b8e9271cc82ae22061136c29c600_60833_800x0_resize_box_3.png 800w, /p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1_huef42b8e9271cc82ae22061136c29c600_60833_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week6 学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    
+    <header class="article-category">
+        
+            <a href="/categories/cs/" >
+                CS
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">CS61B week6 学习笔记</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            包括第六周讲座内容
+        </h3>
+        
+    </div>
+    
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-07-21</time>
+            </div>
+        
+
+         
+        <div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: currentColor;" data-darkreader-inline-stroke="">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" style="--darkreader-inline-stroke: none;" data-darkreader-inline-stroke=""></path>
+  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+  <path d="M9 17h6"></path>
+  <path d="M9 13h6"></path>
+</svg> 
+            <time class="article-words">
+            2446字
+            </time>
+        </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+
+   
+
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="lec14-disjoint-sets">lec14 Disjoint Sets
+</h1><p>这个数据结构应该有两个操作：</p>
+<ul>
+<li><code>connect(x, y)</code> 连接 x 和 y。</li>
+<li><code>isConnected(x, y)</code> 判断 x 和 y 是否是连接的。同时，连接可能是间接的。</li>
+</ul>
+<p>为了实现这个数据结构，重点考虑不同元素是否在同一组当中。一开始，每个元素都是不同的组。如果将两个连接起来，就会把组连接起来。不用考虑具体的连接。</p>
+<h2 id="idea-1">Idea 1
+</h2><p>使用集合的列表。但是这样查找起来会很慢。例如，如果要判断 5 和 6 是否连接，必须遍历列表，消耗时间为 $\Theta(n)$。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center">实现方法</th>
+<th style="text-align:center"><code>constructor</code></th>
+<th style="text-align:center"><code>connect</code></th>
+<th style="text-align:center"><code>isConnected</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ListOfSetsDS</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="idea-2">Idea 2
+</h2><p>使用一个数组，每个索引对应元素，数组中每个相同的值对应同一个组。这些值只要相同就行，不关心具体数值。现在，因为数组读取特定元素只是常数，所以 <code>isConnected</code> 方法为 $O(1)$。然而，<code>connect</code> 方法还是较慢，需要遍历数组。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center">实现方法</th>
+<th style="text-align:center"><code>constructor</code></th>
+<th style="text-align:center"><code>connect</code></th>
+<th style="text-align:center"><code>isConnected</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ListOfSetsDS</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+</tr>
+<tr>
+<td style="text-align:center">QuickFindDS</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$\Theta(1)$</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="idea-3">Idea 3
+</h2><p>数组中，记录每一个节点的父节点。如果值为-1，则代表为父节点。</p>
+<p>在改变连接的时候，只需要修改一个节点就可以。但是，如果树很长，要“爬树”，需要消耗较长时间 $O(n)$；同时，最坏情况下，<code>isConnected</code> 也需要消耗 $O(n)$。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center">实现方法</th>
+<th style="text-align:center"><code>constructor</code></th>
+<th style="text-align:center"><code>connect</code></th>
+<th style="text-align:center"><code>isConnected</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ListOfSetsDS</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+</tr>
+<tr>
+<td style="text-align:center">QuickFindDS</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$\Theta(1)$</td>
+</tr>
+<tr>
+<td style="text-align:center">QuickUnionDS</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="idea-4">Idea 4
+</h2><p>总是将较小的树放在较大的树下面，通过重量来选择。同时，负数的绝对值大小代表成员个数。保证较少元素的树合并到较大元素的树。</p>
+<p>可以证明，树的高度是 $\Theta(\log(n))$。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center">实现方法</th>
+<th style="text-align:center"><code>constructor</code></th>
+<th style="text-align:center"><code>connect</code></th>
+<th style="text-align:center"><code>isConnected</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ListOfSetsDS</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+</tr>
+<tr>
+<td style="text-align:center">QuickFindDS</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$\Theta(1)$</td>
+</tr>
+<tr>
+<td style="text-align:center">QuickUnionDS</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+<td style="text-align:center">$O(n)$</td>
+</tr>
+<tr>
+<td style="text-align:center">WeightedQuickUnionDs</td>
+<td style="text-align:center">$\Theta(n)$</td>
+<td style="text-align:center">$O(\log(n))$</td>
+<td style="text-align:center">$O(\log(n))$</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="idea-5">Idea 5
+</h2><p>在此基础上，如果找到了一些节点的最终根节点，那么就可以把这些节点的 parent 设置为根节点，这样会更快。</p>
+<p>最初的操作可能好事，但最后会相当接近常数。</p>
+<h1 id="lec15-asymptotics-ii">lec15 Asymptotics II
+</h1><h2 id="例子-2">例子 2
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">printParty</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>一种方法是利用画图，可以夹在两条直线之间。</p>
+<p>另一种方法是 $1+2+4+\ldots+N=2N-1$。分析的时候需要注意，这与 $1+2+3+&hellip;+Q=\Theta(Q)$ 不同。</p>
+<h2 id="递归">递归
+</h2><p>对于一些递归的问题，如果每次需要调用两次 n-1 的函数，那么复杂度为 $2^N$。</p>
+<p>对应公式为 $1+2+4+\ldots+2^{N-1}=2^N-1$。</p>
+<h2 id="二分搜索">二分搜索
+</h2><p>对于排序好的数组，每次查找中间的元素，根据大小再次左右分。对于最不利的大小为 $N$ 情况，需要消耗 $\log(N)$。因此，时间复杂度为 $O(\log(n))$。</p>
+<h2 id="排序">排序
+</h2><h3 id="选择排序">选择排序
+</h3><p>涉及到等差数列的求和，复杂度为 $O(n^2)$。</p>
+<h3 id="合并数组">合并数组
+</h3><p>对于两个有序数组，将它们合并只需要 $\Theta(n)$。</p>
+<h3 id="合并排序">合并排序
+</h3><p>可以把原先的数组分成两个数组，对于两个排序后的数组合并。这样不断二分大小，最终二分的次数是 $\log(n)$。每一层的合并需要 $\Theta(n)$。所以，最后的复杂度为 $\Theta(n\log(n))$。</p>
+<h1 id="lec16-adts-sets-maps-bsts">lec16 ADTs, Sets, Maps, BSTs
+</h1><h2 id="抽象数据类型adt">抽象数据类型（ADT）
+</h2><h3 id="解释">解释
+</h3><p>类比 Java，ADT 就好像是接口，不关心具体的实现方式，只要满足 API 就行。因此，对于一种 ADT 可以有多种实现。</p>
+<p>不过，不同的实现方式有性能上的差异。例如，对于栈来说，只支持推入和弹出的操作，这时候链表和数组的实现方式带来的复杂度一样（不考虑改变数组大小的话）。</p>
+<p>又例如，对于 GrabBag ADT，支持以下操作：</p>
+<ul>
+<li><code>insert (int x)</code>：将 x 插入。</li>
+<li><code>int remove()</code>：随机从袋子中移除一个物品。</li>
+<li><code>int sample()</code>：随机观察袋子中每个物品的值（不删除）</li>
+<li><code>int size()</code>：袋子中物品的数量
+此时，因为考虑到需要随机读取元素，因此数组会是更好的实现方式，能带来 $\Theta(1)$ 的性能。</li>
+</ul>
+<h3 id="java-内置-adt">Java 内置 ADT
+</h3><p>大多数有用的接口都在 <code>java.util</code> 中。例如，有 List，Set，Map 等等。同时，Java 也提供了许多有用的实现方式。这一节会学习 TreeSet 和 TreeMap。</p>
+<h2 id="二叉树bst">二叉树（BST）
+</h2><h3 id="引入">引入
+</h3><p>对于线性表而言，查找一个元素需要消耗 $\Theta(n)$ 的时间。如何提升性能呢？可以考虑让指针指向线性表中间的元素，然后翻转左侧的指针。接着，对于左右剩下的部分，也可以做类似的处理。这样递归下去，就可以形成二叉树。</p>
+<h3 id="定义">定义
+</h3><p>树由以下元素组成：</p>
+<ul>
+<li>一些节点的集合。</li>
+<li>一些连接节点的边。同时，两个节点之间有且仅有一条路径。</li>
+</ul>
+<p><img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1_huef42b8e9271cc82ae22061136c29c600_60833_480x0_resize_box_3.png 480w, /p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1_huef42b8e9271cc82ae22061136c29c600_60833_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="树的示意图"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>将没有父节点的节点成为根（root），将没有子节点的节点称为叶节点（leaf）。在有根的二叉树中，每个节点拥有 0、1 或 2 个子节点。</p>
+<p>对于二叉树来说，对于每个节点，都有以下性质：</p>
+<ul>
+<li>左侧子节点的值比当前节点的值小</li>
+<li>右侧子节点的值比当前节点的值大
+同时，这种排序方式需要是明确的。</li>
+</ul>
+<h3 id="搜索">搜索
+</h3><p>对于二叉树，搜索起来相当简单。如果当前节点的值等于搜索值，就返回。不然，如果搜索值小于当前值，就在左侧子树上搜索；否则在右侧搜索。</p>
+<p><img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree2.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree2_hu70348a93f752ebb87d20f446ddb2c28a_63876_480x0_resize_box_3.png 480w, /p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree2_hu70348a93f752ebb87d20f446ddb2c28a_63876_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="二叉树搜索"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>可以发现，对于“茂盛”的二叉树，最差情况下搜索只需要 $\Theta(\log(n))$。在实际程序中，这个性能是够用的。</p>
+<h3 id="插入">插入
+</h3><p>搜索当前的插入值。如果找到了当前值，就返回。否则，就需要创建新节点，并且设置新的指针。</p>
+<p><img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree3.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree3_hu0aafefb2847002877110f1e8eceee632_86332_480x0_resize_box_3.png 480w, /p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree3_hu0aafefb2847002877110f1e8eceee632_86332_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="二叉树插入"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>在上面的事例代码中，需要注意，不要写成右侧的代码。右侧代码并没有真正相信递归，没有处理好 base case，只会增加复杂性。实际上，如果没找到节点，就返回新创建节点的指针；如果找到了，就直接返回 T，也就是不改变当前树。这样才是更高效的做法。</p>
+<h3 id="删除">删除
+</h3><p>二叉树的删除分为三种情况：</p>
+<ol>
+<li>要删除的节点没有子节点</li>
+<li>要删除的节点有一个子节点</li>
+<li>要删除的节点有两个子节点</li>
+</ol>
+<p>对于第一种情况，很明显只需要将父节点的指针删去即可。</p>
+<p>对于第二种情况，需要保持二叉树的特性。</p>
+<p><img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree4.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree4_hu39df9bdc80572d987b76f8eb2cbc8491_63707_480x0_resize_box_3.png 480w, /p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree4_hu39df9bdc80572d987b76f8eb2cbc8491_63707_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="二叉树删除情况二"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>在这个例子中，为了删去 flat 节点，可以发现 flat 的各个子节点都是大于 flat 的父节点——dog，因此可以直接将 dog 指向 flat 的子节点 elf，满足二叉树的特性。</p>
+<p>对于第三种情况，在下图中删除 k 节点。</p>
+<p><img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree5.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree5_hu1285b5f485529d3a079e5ba6de72a02f_43227_480x0_resize_box_3.png 480w, /p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree5_hu1285b5f485529d3a079e5ba6de72a02f_43227_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="二叉树删除情况三"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>这时候，为了方便起见，可以考虑保留 k，只是更换当中的值。那么，这个新的值必须要比左侧所有节点的值大，比右侧所有节点的值小。</p>
+<p>通过观察发现，左子树的最大值 g 和右子树的最小值 m 符合要求，因此可以选取其中之一更换 k 的值。然后，删除 g 或 m。此时，如果要被删除的节点有两个子节点，就不满足上面最小值或最大值的情况，因此该节点只能有 0 个或 1 个子节点，删除它也就变成了前两种情况。</p>
+<h3 id="应用">应用
+</h3><p>二叉搜索树可以实现集合和字典。因为二叉树没有重复元素，因此满足了集合和字典的要求。</p>
+<p>对于集合，只用将元素作为二叉树的值。对于字典，只需要同时储存 key 和 value 即可。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cs61b/">Cs61b</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+        
+            <a href="/tags/java/">Java</a>
+        
+            <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/">并查集</a>
+        
+            <a href="/tags/%E6%A0%91/">树</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: '\$', right: '\$', display: false }
+                        ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/cs61b-week5-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week5 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/cs61b-week4-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week4 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/circular.bc31fcd063493feb44e7a2ce21d3fd86_hu0cb3e8a5ae6461545981ed543138b0ea_88986_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week3 学习笔记"
+                        
+                        data-hash="md5-vDH80GNJP&#43;tE56LOIdP9hg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week3 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/cs61b-week2-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week2 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="ovideros/ovideros.github.io"
+    data-repo-id="R_kgDOMT7tQw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOMT7tQ84Cgtxo"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Ovid的博客
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
