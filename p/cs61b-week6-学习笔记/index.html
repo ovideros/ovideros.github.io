@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="包括第六周讲座内容">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="包括第六周讲座内容和lab6">
 <title>CS61B week6 学习笔记</title>
 
 <link rel='canonical' href='https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 
 <link rel="stylesheet" href="/scss/style.min.80736d734333c1fab997c2536137596072eb0aea65d8215e1cc0b6e1a6c32a63.css"><meta property='og:title' content="CS61B week6 学习笔记">
-<meta property='og:description' content="包括第六周讲座内容">
+<meta property='og:description' content="包括第六周讲座内容和lab6">
 <meta property='og:url' content='https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='Ovid的博客'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cs61b' /><meta property='article:tag' content='数据结构与算法' /><meta property='article:tag' content='java' /><meta property='article:tag' content='并查集' /><meta property='article:tag' content='树' /><meta property='article:published_time' content='2024-07-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-07-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1.png' />
 <meta name="twitter:title" content="CS61B week6 学习笔记">
-<meta name="twitter:description" content="包括第六周讲座内容"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="包括第六周讲座内容和lab6"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree1.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -286,7 +286,7 @@
             <li><a href="#java-内置-adt">Java 内置 ADT</a></li>
           </ol>
         </li>
-        <li><a href="#二叉树bst">二叉树（BST）</a>
+        <li><a href="#二叉搜索树bst">二叉搜索树（BST）</a>
           <ol>
             <li><a href="#引入">引入</a></li>
             <li><a href="#定义">定义</a></li>
@@ -296,6 +296,17 @@
             <li><a href="#应用">应用</a></li>
           </ol>
         </li>
+      </ol>
+    </li>
+    <li><a href="#lab6">lab6</a>
+      <ol>
+        <li><a href="#java-命令行">Java 命令行</a></li>
+        <li><a href="#make">Make</a></li>
+        <li><a href="#java-路径">Java 路径</a></li>
+        <li><a href="#java-文件">Java 文件</a></li>
+        <li><a href="#序列化-serializable">序列化 Serializable</a></li>
+        <li><a href="#exercise">Exercise</a></li>
+        <li><a href="#调试">调试</a></li>
       </ol>
     </li>
   </ol>
@@ -343,7 +354,7 @@
     
         
         <h3 class="article-subtitle">
-            包括第六周讲座内容
+            包括第六周讲座内容和lab6
         </h3>
         
     </div>
@@ -378,7 +389,7 @@
   <path d="M9 13h6"></path>
 </svg> 
             <time class="article-words">
-            2446字
+            3140字
             </time>
         </div>
         
@@ -394,7 +405,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 7 分钟
                 </time>
             </div>
         
@@ -591,7 +602,7 @@
 </ul>
 <h3 id="java-内置-adt">Java 内置 ADT
 </h3><p>大多数有用的接口都在 <code>java.util</code> 中。例如，有 List，Set，Map 等等。同时，Java 也提供了许多有用的实现方式。这一节会学习 TreeSet 和 TreeMap。</p>
-<h2 id="二叉树bst">二叉树（BST）
+<h2 id="二叉搜索树bst">二叉搜索树（BST）
 </h2><h3 id="引入">引入
 </h3><p>对于线性表而言，查找一个元素需要消耗 $\Theta(n)$ 的时间。如何提升性能呢？可以考虑让指针指向线性表中间的元素，然后翻转左侧的指针。接着，对于左右剩下的部分，也可以做类似的处理。这样递归下去，就可以形成二叉树。</p>
 <h3 id="定义">定义
@@ -615,14 +626,14 @@
 	
 ></p>
 <p>将没有父节点的节点成为根（root），将没有子节点的节点称为叶节点（leaf）。在有根的二叉树中，每个节点拥有 0、1 或 2 个子节点。</p>
-<p>对于二叉树来说，对于每个节点，都有以下性质：</p>
+<p>对于二叉搜索树来说，对于每个节点，都有以下性质：</p>
 <ul>
 <li>左侧子节点的值比当前节点的值小</li>
 <li>右侧子节点的值比当前节点的值大
 同时，这种排序方式需要是明确的。</li>
 </ul>
 <h3 id="搜索">搜索
-</h3><p>对于二叉树，搜索起来相当简单。如果当前节点的值等于搜索值，就返回。不然，如果搜索值小于当前值，就在左侧子树上搜索；否则在右侧搜索。</p>
+</h3><p>对于二叉搜索树，搜索起来相当简单。如果当前节点的值等于搜索值，就返回。不然，如果搜索值小于当前值，就在左侧子树上搜索；否则在右侧搜索。</p>
 <p><img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree2.png"
 	width="960"
 	height="540"
@@ -637,7 +648,7 @@
 		data-flex-basis="426px"
 	
 ></p>
-<p>可以发现，对于“茂盛”的二叉树，最差情况下搜索只需要 $\Theta(\log(n))$。在实际程序中，这个性能是够用的。</p>
+<p>可以发现，对于“茂盛”的二叉搜索树，最差情况下搜索只需要 $\Theta(\log(n))$。在实际程序中，这个性能是够用的。</p>
 <h3 id="插入">插入
 </h3><p>搜索当前的插入值。如果找到了当前值，就返回。否则，就需要创建新节点，并且设置新的指针。</p>
 <p><img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree3.png"
@@ -656,14 +667,14 @@
 ></p>
 <p>在上面的事例代码中，需要注意，不要写成右侧的代码。右侧代码并没有真正相信递归，没有处理好 base case，只会增加复杂性。实际上，如果没找到节点，就返回新创建节点的指针；如果找到了，就直接返回 T，也就是不改变当前树。这样才是更高效的做法。</p>
 <h3 id="删除">删除
-</h3><p>二叉树的删除分为三种情况：</p>
+</h3><p>二叉搜索树的删除分为三种情况：</p>
 <ol>
 <li>要删除的节点没有子节点</li>
 <li>要删除的节点有一个子节点</li>
 <li>要删除的节点有两个子节点</li>
 </ol>
 <p>对于第一种情况，很明显只需要将父节点的指针删去即可。</p>
-<p>对于第二种情况，需要保持二叉树的特性。</p>
+<p>对于第二种情况，需要保持二叉搜索树的特性。</p>
 <p><img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree4.png"
 	width="960"
 	height="540"
@@ -678,7 +689,7 @@
 		data-flex-basis="426px"
 	
 ></p>
-<p>在这个例子中，为了删去 flat 节点，可以发现 flat 的各个子节点都是大于 flat 的父节点——dog，因此可以直接将 dog 指向 flat 的子节点 elf，满足二叉树的特性。</p>
+<p>在这个例子中，为了删去 flat 节点，可以发现 flat 的各个子节点都是大于 flat 的父节点——dog，因此可以直接将 dog 指向 flat 的子节点 elf，满足二叉搜索树的特性。</p>
 <p>对于第三种情况，在下图中删除 k 节点。</p>
 <p><img src="/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree5.png"
 	width="960"
@@ -697,8 +708,192 @@
 <p>这时候，为了方便起见，可以考虑保留 k，只是更换当中的值。那么，这个新的值必须要比左侧所有节点的值大，比右侧所有节点的值小。</p>
 <p>通过观察发现，左子树的最大值 g 和右子树的最小值 m 符合要求，因此可以选取其中之一更换 k 的值。然后，删除 g 或 m。此时，如果要被删除的节点有两个子节点，就不满足上面最小值或最大值的情况，因此该节点只能有 0 个或 1 个子节点，删除它也就变成了前两种情况。</p>
 <h3 id="应用">应用
-</h3><p>二叉搜索树可以实现集合和字典。因为二叉树没有重复元素，因此满足了集合和字典的要求。</p>
-<p>对于集合，只用将元素作为二叉树的值。对于字典，只需要同时储存 key 和 value 即可。</p>
+</h3><p>二叉搜索树可以实现集合和字典。因为二叉搜索树没有重复元素，因此满足了集合和字典的要求。</p>
+<p>对于集合，只用将元素作为二叉搜索树的值。对于字典，只需要同时储存 key 和 value 即可。</p>
+<h1 id="lab6">lab6
+</h1><p>这一个 lab 主要是为了 project 2 做准备，包括如何使用命令行来使用 Java，如何使用路径，以及如何让程序保存状态。</p>
+<h2 id="java-命令行">Java 命令行
+</h2><p>一般来说，先要通过 javac 将源代码转换成二进制类文件，然后使用 java 运行程序。同时，利用命令行运行程序时，命令会储存到 main 的 args 中。</p>
+<h2 id="make">Make
+</h2><p>通过 makefile，可以方便地编译大型程序。这里也没有细说，只是展示了可以这样，并且提供了 <code>make</code> 来编译程序，使用 <code>make check</code> 来运行本地的测试程序。</p>
+<h2 id="java-路径">Java 路径
+</h2><p>使用 System 中的方法 <code>getProperty(&quot;user.dir&quot;)</code> 来获取当前路径。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// file /home/Michelle/example/Example.java</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">class</span> <span class="nc">Example</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&#34;user.dir&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>也介绍了绝对路径和相对路径的概念。</p>
+<h2 id="java-文件">Java 文件
+</h2><p>使用如下代码来使用文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">File</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;dummy.txt&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">f</span><span class="p">.</span><span class="na">createNewFile</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>检查文件是否存在：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">f</span><span class="p">.</span><span class="na">exists</span><span class="p">()</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>文件夹在 Java 中也是通过 File 来表示的。例如，创建一个文件夹对象：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">File</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="s">&#34;dummy&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>创造文件夹：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">d</span><span class="p">.</span><span class="na">mkdir</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="序列化-serializable">序列化 Serializable
+</h2><p>在 <code>java.io.Serializable</code> 有相应的接口，需要继承。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.Serializable</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Model</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后，写入类文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Model</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">....;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">File</span><span class="w"> </span><span class="n">outFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">saveFileName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ObjectOutputStream</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectOutputStream</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FileOutputStream</span><span class="p">(</span><span class="n">outFile</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">out</span><span class="p">.</span><span class="na">writeObject</span><span class="p">(</span><span class="n">m</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">out</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">excp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>会将 m 转化为字节，并存储到文件中。之后，可以读入文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Model</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">File</span><span class="w"> </span><span class="n">inFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">saveFileName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">ObjectInputStream</span><span class="w"> </span><span class="n">inp</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectInputStream</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">inFile</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Model</span><span class="p">)</span><span class="w"> </span><span class="n">inp</span><span class="p">.</span><span class="na">readObject</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">inp</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ClassNotFoundException</span><span class="w"> </span><span class="n">excp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用了帮助函数后，写入和阅读更加简单：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Model</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">File</span><span class="w"> </span><span class="n">outFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">saveFileName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Serializing the Model object</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">writeObject</span><span class="p">(</span><span class="n">outFile</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Model</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">File</span><span class="w"> </span><span class="n">inFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">saveFileName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Deserializing the Model object</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">readObject</span><span class="p">(</span><span class="n">inFile</span><span class="p">,</span><span class="w"> </span><span class="n">Model</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="exercise">Exercise
+</h2><p>这个练习只需要根据步骤一步步做即可。不过可能是我的终端环境有些问题，怎么改也很难运行 <code>make check</code>。最后只能在 <code>testing/</code> 文件夹下手动运行 <code>python tester.py --src=our-src  .\our\test01-basic-story.in</code> 来测试。</p>
+<h2 id="调试">调试
+</h2><p>对于拥有持久性的程序，不能简单地像之前那样调试。不过，可以使用 IDEA 的远程 JVM 调试，设置断点，然后利用终端执行命令，使用 s 步入，就可以使用 IDEA 继续调试。</p>
 
 </section>
 
@@ -769,6 +964,19 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week7 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">
