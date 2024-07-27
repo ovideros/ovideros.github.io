@@ -10,9 +10,10 @@
 <meta property='og:description' content="包括第七周讲座内容和lab7">
 <meta property='og:url' content='https://ovideros.github.io/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='Ovid的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cs61b' /><meta property='article:tag' content='数据结构与算法' /><meta property='article:tag' content='java' /><meta property='article:tag' content='编程感悟' /><meta property='article:published_time' content='2024-07-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-07-24T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cs61b' /><meta property='article:tag' content='数据结构与算法' /><meta property='article:tag' content='java' /><meta property='article:tag' content='编程感悟' /><meta property='article:published_time' content='2024-07-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-07-24T00:00:00&#43;00:00'/><meta property='og:image' content='https://ovideros.github.io/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1.png' />
 <meta name="twitter:title" content="CS61B week7 学习笔记">
-<meta name="twitter:description" content="包括第七周讲座内容和lab7">
+<meta name="twitter:description" content="包括第七周讲座内容和lab7"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ovideros.github.io/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
   
@@ -333,8 +334,20 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1_hu5803f0d0359789cfc2af66585133fdd8_43197_800x0_resize_box_3.png"
+                        srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1_hu5803f0d0359789cfc2af66585133fdd8_43197_800x0_resize_box_3.png 800w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1_hu5803f0d0359789cfc2af66585133fdd8_43197_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week7 学习笔记" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -390,7 +403,7 @@
   <path d="M9 13h6"></path>
 </svg> 
             <time class="article-words">
-            4003字
+            3987字
             </time>
         </div>
         
@@ -424,8 +437,7 @@
     <section class="article-content">
     
     
-    <p>图片部分还有待完善&hellip;</p>
-<h1 id="lec17-b-trees2-3-2-3-4-trees">lec17 B-Trees(2-3, 2-3-4 Trees)
+    <h1 id="lec17-b-trees2-3-2-3-4-trees">lec17 B-Trees(2-3, 2-3-4 Trees)
 </h1><h2 id="二叉搜索树">二叉搜索树
 </h2><h3 id="bushy-vs-spindly">Bushy vs. Spindly
 </h3><p>对于茂盛的二叉搜索树，高度是 $\Theta(\log(n))$ ；而对于细长的二叉搜索树，高度是 $\Theta(n)$，这时候其实退化成了链表。</p>
@@ -435,28 +447,95 @@
 <li>最差情况的 BST 高度为 $\Theta(n)$</li>
 <li>BST 高度为 $O(n)$</li>
 </ul>
-<p>事实上，说最差情况的 BST 高度为 $\Theta(n)$ 提供了更多信息。因为，实际上大 O 不能说明复杂度会达到那个程度，只能说明小于等于。所以，信息量更少。</p>
+<p>事实上，说最差情况的 BST 高度为 $\Theta(n)$ 提供了更多信息。因为，大 O 不能说明复杂度会达到那个程度，只能说明小于等于。所以，信息量更少。</p>
 <p>举例来说，你也可以说二叉搜索树的高度为 $O(n^2)$。现实当中，人们通常默认大 O 表示了最坏情况。</p>
 <h3 id="高度深度与表现">高度、深度与表现
-</h3><p>Depth：某个节点举例根节点的距离。例如，根节点深度为 0，根节点的子节点为 1。</p>
-<p>Height：节点深度的最大值。</p>
-<p>Average depth：节点深度的平均值。如图。</p>
-<p>![[lec17-1.png]]</p>
-<p>高度决定了树在最差情况下的时间，平均深度决定了平均情况下的时间。</p>
+</h3><ul>
+<li>Depth：某个节点举例根节点的距离。例如，根节点深度为 0，根节点的子节点为 1。</li>
+<li>Height：节点深度的最大值。</li>
+<li>Average depth：节点深度的平均值。如图。</li>
+</ul>
+<p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-1_huc1284df9b32dd99bc975833e62363112_70277_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-1_huc1284df9b32dd99bc975833e62363112_70277_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec17-1.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
+高度决定了树在最差情况下的时间，平均深度决定了平均情况下的时间。</p>
 <h3 id="随机的树">随机的树
 </h3><p>如果加入物品的顺序不一样，那么树的高度和平均深度可能不一样，表现也就不一样。</p>
-<p>不过，如果随机加入元素，可以证明平均深度约为 $2\ln(n)$，树的高度约为 $4.311\ln(n)$。如果包括删除，也可以证明随机的树的性能仍然是 $\Theta(\log(n))$。</p>
-<p>然而，如果插入的物品是有序的，那么很可能导致较差的情况。例如，储存有序日期的时候，总是有序的。</p>
+<p>不过，如果随机加入元素，可以证明平均深度约为 $2\ln(n)$，树的高度约为 $4.311\ln(n)$。如果包括删除操作，也可以证明随机的树的性能仍然是 $\Theta(\log(n))$。</p>
+<p>然而，如果插入的物品是有序的，那么很可能导致较差的情况。例如，储存有序日期的时候，数据总是有序的，这时候普通二叉搜索树的表现较差。</p>
 <h2 id="b-trees-2-3-trees-2-3-4-trees">B-Trees 2-3 trees 2-3-4 trees
 </h2><h3 id="概念">概念
-</h3><p>为了不增加新的深度，可以考虑将新的家电插入到原先节点。然而，如果插入得过多，显然会降低性能。</p>
-<p>![[lec17-2.png]]</p>
-<p>可以设置一个限制，如果某个节点多于限制 L，将某个值给父节点。不过，这样有可能失去搜索树的性质。因此，需要分支节点。</p>
-<p>![[lec17-3.png]]</p>
-<p>如果大于 3个元素，就分割。因此，中间的 16 分割后介于 15 和 17 之间，是 <code>15 17</code> 节点的第二个子节点。</p>
-<p>![[lec17-4.png]]
+</h3><p>为了不增加新的深度，可以考虑将新的节点插入到原先节点。然而，如果插入得过多，显然会降低性能。
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-2.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-2_hu50005bbf07fc2d41f503c67652b6978b_71244_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-2_hu50005bbf07fc2d41f503c67652b6978b_71244_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec17-2.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>可以设置一个限制，如果某个节点多于限制 L，将某个值给父节点。不过，这样有可能失去搜索树的性质。因此，需要增加子节点的数量。</p>
+<p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-3.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-3_hu7123fff9ce5883323f9dca174b7aee80_76804_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-3_hu7123fff9ce5883323f9dca174b7aee80_76804_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec17-3.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
+如果大于 3 个元素，就分割。因此，中间的 16 分割后介于 15 和 17 之间，是 <code>15 17</code> 节点的第二个子节点。</p>
+<p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-4.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-4_huf1fc7f1a6bf38c5f0799f5072d664b5f_57369_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-4_huf1fc7f1a6bf38c5f0799f5072d664b5f_57369_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec17-4.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
 途中，因为 <code>15 17 19 21</code> 节点的元素个数超过了 3，因此将 17 上升，并分割出 15。</p>
-<p>![[lec17-5.png]]
+<p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-5.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-5_hu1c28bde5794ea0194b3a7aad55f3383c_44833_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-5_hu1c28bde5794ea0194b3a7aad55f3383c_44833_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec17-5.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
 在这个例子当中，根节点也需要分割。因此，新的根节点变成了 17，同时将 13 和剩下的节点分开。因此，当根节点充满元素的时候，刚好会提升一层高度，树还是充满的。</p>
 <h3 id="分类">分类
 </h3><p>如果让 $L=3$，就像上面的示例，那么也称为 2-3-4 树（aka 2-4 树）。这意味着每个节点可能有 2、3、4 个子节点。</p>
@@ -470,10 +549,23 @@
 </h3><p>可以证明，无论是怎样的顺序，总可以得到 bushy 的树。</p>
 <p>根据 B 树的构造方式，有两个不变量：</p>
 <ul>
-<li>分开的节点距离原先节点有相同距离</li>
+<li>所有叶节点具有相同的高度</li>
 <li>一个拥有 k 个物品的非叶节点，肯定有 k+1 个子节点</li>
 </ul>
-<p>![[lec17-6.png]]
+<p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-6.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-6_huc6c65b0b7df99907721a9a6c5fd5f620_77293_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-6_huc6c65b0b7df99907721a9a6c5fd5f620_77293_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec17-6.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
 图中的例子同时违反了这两个不变量。</p>
 <h3 id="性能">性能
 </h3><p>对于 L 为 2 的 B 树，在最差情况下，高度是 $\log_2(n)$。在最好情况下，高度为 $\log_3(n)$。所以，高度是 $\Theta(\log(n))$。</p>
@@ -483,47 +575,229 @@
 </h1><h2 id="树旋转">树旋转
 </h2><h3 id="理解">理解
 </h3><p>如果要将 G 向左旋转，那么首先让 P 成为 G 的父节点。此时，P 有三个子节点，不符合。因此，让原先 P 的左子节点 k 成为 G 的右子节点。这样就完成了旋转。
-![[lec18-1.png]]</p>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1_hu5803f0d0359789cfc2af66585133fdd8_43197_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1_hu5803f0d0359789cfc2af66585133fdd8_43197_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-1.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
 <p>某节点左旋转：设该节点原先的右节点为 x。则旋转后让 x 的左子节点编程该节点。</p>
 <p>旋转还有另一种理解方法：首先让 P 向上与 G 融合。然后将 G 分裂下来，拥有 C 和 k 两个子节点。
-![[lec18-2.png]]</p>
-<p>![[lec18-3.png]]</p>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-2.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-2_huc16acd8dd05258a6faa7c9a08d4e2015_67467_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-2_huc16acd8dd05258a6faa7c9a08d4e2015_67467_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-2.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-3.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-3_hu011f78d34a997a8b6bfda6cb52ae6556_34934_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-3_hu011f78d34a997a8b6bfda6cb52ae6556_34934_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-3.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
 <h3 id="作用">作用
-</h3><p>![[lec18-4.png]]
+</h3><p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-4.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-4_hu776dcabeef9c536142a290002ca58701_44633_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-4_hu776dcabeef9c536142a290002ca58701_44633_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-4.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
 通过旋转，可以改变树的结构，并缩短高度。理论上来说，利用旋转来平衡一个不平衡的树需要 $O(n)$ 的时间。</p>
 <h2 id="红黑树">红黑树
 </h2><p>可以考虑构造和 2-3 树等价的二叉搜索树。</p>
 <p>对于只有 2 节点的 2-3 树，每个节点只有一个元素，显然就是 BST。如果有 3 节点，那么就有些麻烦。</p>
-<p>![[lec18-5.png]]
+<p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-5.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-5_hu16624c341a3e4a7a32fea026333aab67_67724_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-5_hu16624c341a3e4a7a32fea026333aab67_67724_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-5.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
 可以使用“胶水”链接，就较小的元素放在左侧。</p>
 <h3 id="概念-1">概念
-</h3><p>![[lec18-6.png]]</p>
-<p>2-3 树与左倾红黑树有一一对应关系，同时 LLRB 也就是普通的 BST。其中，红色的链接并没有做什么特殊的事。</p>
+</h3><p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-6.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-6_hue294f77de2bf532a3eda2286de52403f_108250_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-6_hue294f77de2bf532a3eda2286de52403f_108250_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-6.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
+2-3 树与左倾红黑树有一一对应关系，同时 LLRB 也就是普通的 BST。其中，红色的链接并没有做什么特殊的事。</p>
 <p>LLRB 的查找与一般的 BST 一样。</p>
-<p>![[lec18-7.png]]
+<p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-7.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-7_hue50d84f2e4fb7cb24c73ced5b20fad8f_58244_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-7_hue50d84f2e4fb7cb24c73ced5b20fad8f_58244_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-7.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
 在几乎都是 3 节点的情况下，设2-3 树的高度为 $H$，则对应的 LLRB 树的高度为 $H+H+1=2H+1$。</p>
 <h3 id="性质">性质
 </h3><p>在 2-3 树中，所有叶节点与根节点的距离相同。因此，在对应的 LLRB 中，所有叶节点距离根节点的黑色链接数量相同。同时，因为 2-3 树最多只有 3 节点，因此没有一个节点同时拥有两个红色的链接。
-![[lec18-8.png]]</p>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-8.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-8_huf7d1bac5daf4f612a469c73c7f644e06_118150_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-8_huf7d1bac5daf4f612a469c73c7f644e06_118150_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-8.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
 <h3 id="构造">构造
 </h3><p>因为 LLRB 与 2-3 树的对应关系，因此 LLRB 的高度不会超过 2-3 树高度的大约两倍，所以拥有相同的 $\Theta(\log(n))$ 性能。</p>
 <p>为了构造 LLRB，可以在插入元素后，通过一些旋转操作，保持 2-3 树与 LLRB 的对应关系。</p>
 <h4 id="1">1
 </h4><p>因为在 2-3 树中总是在已有节点上添加元素，因此新加入的节点总是红色链接。
-![[lec18-9 1.png]]</p>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-9.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-9_hueb32f22ddf54fd1b7ef0b9960b9eeee2_47957_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-9_hueb32f22ddf54fd1b7ef0b9960b9eeee2_47957_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-9.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
 <h4 id="2">2
 </h4><p>在插入后，如果红色连接方向为右下，那么需要旋转，因为 LLRB 中红色连接总是向左下的。
-![[lec18-10.png]]</p>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-10.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-10_hued033807d230128ac227937ae90b6add_57852_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-10_hued033807d230128ac227937ae90b6add_57852_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-10.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
 <p>使用两个红色连接，来表示暂时的 4 节点。
-![[lec18-11.png]]</p>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-11.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-11_hu82c0218599ad11378fcdbbf39fd4546f_74498_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-11_hu82c0218599ad11378fcdbbf39fd4546f_74498_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-11.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
 <h4 id="3">3
 </h4><p>在临时的 4 节点中，如果不符合刚刚的临时节点表示方法，就需要旋转，创造某一个节点的左右子连接为红色。
-![[lec18-12.png]]</p>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-12.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-12_hu55d364db5763db75b872f0ff770678b1_63595_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-12_hu55d364db5763db75b872f0ff770678b1_63595_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-12.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
 <h4 id="4">4
 </h4><p>最后，考虑合并。这时候其实并没有涉及到旋转，只需要改变颜色。将所有关于 B 的边的颜色反向。
-![[lec18-13.png]]</p>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-13.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-13_hu09849140d804657bb7739e7e1e9cae34_74119_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-13_hu09849140d804657bb7739e7e1e9cae34_74119_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-13.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
 <p>总结，只需要下面三个操作：
-![[lec18-14.png]]</p>
+<img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-14.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-14_hu3acf9181290d62d41c7fb4712490c4ca_92363_480x0_resize_box_3.png 480w, /p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-14_hu3acf9181290d62d41c7fb4712490c4ca_92363_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec18-14.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
 <h3 id="运行时间">运行时间
 </h3><p>插入时间为 $O(\log(n))$。同时，旋转和翻转颜色的操作对于每一次插入，也是 $O(\log(n))$。</p>
 <p>（61 B 没有覆盖 LLRB 的删除，不过可以参考 B 树的删除）</p>
@@ -540,7 +814,7 @@
 <ul>
 <li>维持与 2-3-4 树的联系（不是一对一）</li>
 <li>允许两侧的辅助链接</li>
-<li>实现更加复杂，但是明显更快</li>
+<li>实现起来更加复杂，但是明显更快</li>
 </ul>
 </li>
 </ul>
@@ -589,14 +863,9 @@
 <td>$\Theta(Q)$</td>
 <td>$\Theta(Q)$</td>
 </tr>
-<tr>
-<td>其中，Q 是最长链表的长度。</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table></div>
-<p>HashCode 可以利用取余数，得到某一区间内的整数。</p>
+<p>其中，Q 是最长链表的长度。HashCode 可以利用取余数，得到某一区间内的整数。</p>
 <h2 id="优化">优化
 </h2><p>假设数组的大小是固定的 M，则当 N 不断增大超过 M 后，Q 就与 N 成正比，最终的时间就变成了 $\Theta(n)$，性能不好。</p>
 <p>因此，考虑让 M 的大小不断增大，这和 [[CS61B project1]] 中 ArrayDeque 类似。如果 N/M 大于某一个数，例如 1.5，那么就让 M 的大小翻倍。</p>
@@ -616,30 +885,22 @@
 </h2><p>如果希望指定某一个泛型继承自某一个类，自需要使用 bounded type parameter，例如下面的代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">NaturalNumber</span><span class="o">&lt;</span><span class="n">T</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">private</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">public</span><span class="w"> </span><span class="nf">NaturalNumber</span><span class="p">(</span><span class="n">T</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">isEven</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="na">intValue</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// ...</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
@@ -919,6 +1180,30 @@
         <div class="flex article-list--tile">
             
                 
+<article class="has-image">
+    <a href="/p/cs61b-week8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec20-12.9cdd4cd5f974c1c585bd87e88e9dff3b_hu22adb50f6d7a902542e86845e16fef58_73917_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week8 学习笔记"
+                        
+                        data-hash="md5-nN1M1fl0wcWFvYfojp3/Ow==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week8 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
 <article class="">
     <a href="/p/cs61b-week4-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         
@@ -987,19 +1272,6 @@
 
         <div class="article-details">
             <h2 class="article-title">CS61B week6 学习笔记</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/cs61b-week5-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">CS61B week5 学习笔记</h2>
         </div>
     </a>
 </article>
