@@ -6,7 +6,187 @@
         <description>Recent content in Java on Ovid的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 27 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 31 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CS61B week9 学习笔记</title>
+        <link>https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Wed, 31 Jul 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;img src="https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1.png" alt="Featured image of post CS61B week9 学习笔记" /&gt;&lt;h1 id=&#34;lec23-shortest-paths&#34;&gt;lec23 Shortest Paths
+&lt;/h1&gt;&lt;h2 id=&#34;引入&#34;&gt;引入
+&lt;/h2&gt;&lt;p&gt;BFS 只会考虑边的个数。如果每个边有不同的长度，那么就不能简单地使用 BFS。&lt;/p&gt;
+&lt;p&gt;显然，最佳的路径不会有圈。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1_hub18ef14dc4183ea9d79e62e98a373d5e_75304_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1_hub18ef14dc4183ea9d79e62e98a373d5e_75304_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec23-1.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;
+很有趣的是，最后各个节点的最优路径会形成一棵树。包括有向图和无向图。这个路径成为 Shortest Path Tree（SPT）。&lt;/p&gt;
+&lt;p&gt;在 SPT 中，边的个数总数 V-1，V 为节点的个数。&lt;/p&gt;
+&lt;h2 id=&#34;尝试&#34;&gt;尝试
+&lt;/h2&gt;&lt;h3 id=&#34;第一个算法&#34;&gt;第一个算法
+&lt;/h3&gt;&lt;p&gt;一开始所有节点的距离设置为无穷。然后进行深度优先搜索，对于相邻每个节点，如果不在 SPT 中，就加入这个边。然而，这样无法得到最短的路径，因为只要有节点被标记，就不再遍历相应的边。&lt;/p&gt;
+&lt;h3 id=&#34;第二个算法&#34;&gt;第二个算法
+&lt;/h3&gt;&lt;p&gt;利用深度优先搜索，如果某个边可以产生更短的距离，就将这个边加入 SPT。在这个例子中，考虑 C 之后应该重新考虑 B，才有可能得到最短路径。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-2.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-2_hu7115eafa975a5f03e98a9368b1cb2372_101123_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-2_hu7115eafa975a5f03e98a9368b1cb2372_101123_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec23-2.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;dijkstra&#34;&gt;Dijkstra
+&lt;/h3&gt;&lt;p&gt;不要用深度优先，而是用&amp;quot;best first search&amp;quot;。&lt;/p&gt;
+&lt;p&gt;在每一次选择下一个遍历的节点时，聚焦于距离最短的那个节点。然后，计算各个边带来的距离，并且更新最短距离。
+![lec23-2 1.png](lec23-2 1.png)&lt;/p&gt;
+&lt;p&gt;将所有的点插入 fringe PQ，储存节点距离源的距离。重复以下步骤：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从 PQ 中移除距离最小的节点&lt;/li&gt;
+&lt;li&gt;更新该节点指向的所有边，包括 &lt;code&gt;distTo&lt;/code&gt; 和 &lt;code&gt;edgeTo&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;lec24-minimum-spanning-trees&#34;&gt;lec24 Minimum Spanning Trees
+&lt;/h1&gt;&lt;h2 id=&#34;引入-1&#34;&gt;引入
+&lt;/h2&gt;&lt;p&gt;如何判断一个图当中是否有圈？&lt;/p&gt;
+&lt;p&gt;一：使用 DFS。从某个节点开始，直到遇到标记过的节点，但是不包括刚刚来的节点。最差情况是 $\Theta(V+E)$&lt;/p&gt;
+&lt;p&gt;二：使用并查集。对于每条边，检查两个节点是否相连。如果没有，就连接。如果有，就代表有环。最差情况为 $O(V+E\log*(V))$&lt;/p&gt;
+&lt;h2 id=&#34;最小生成树&#34;&gt;最小生成树
+&lt;/h2&gt;&lt;p&gt;只在无向图中存在。生成树是图的一个子集，包含所有节点，并且是连接、无环的。最小生成树意味着每条边的值加起来最小，即 MST。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-1.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-1_hu1875ae7a7fd6686a3eb6fb49c7196bf9_94588_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-1_hu1875ae7a7fd6686a3eb6fb49c7196bf9_94588_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec24-1.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在有些图中，从某些节点出发的 SPT 并不是 MST，但有些节点是。但有些图中，根本没有 SPT 是 MST。所以，不能通过先确定某个节点，再根据 Dijkstra 来找到 MST。&lt;/p&gt;
+&lt;h3 id=&#34;cut-特性&#34;&gt;Cut 特性
+&lt;/h3&gt;&lt;p&gt;Cut 将图中节点分类两类非空集合。一个交叉边就是连接两个不同集合节点的边。Cut 特性：给定任意的 Cut，拥有最小值的交叉边一定是 MST 的一部分。这可以通过反证法证明。
+![lec24-2 1.png](lec24-2 1.png)&lt;/p&gt;
+&lt;p&gt;利用这个，可以找到一个 cut，它的交叉边都不在 MST 中，然后将最小值加入 MST。不断重复。&lt;/p&gt;
+&lt;h2 id=&#34;prim-算法&#34;&gt;Prim 算法
+&lt;/h2&gt;&lt;p&gt;第一次选取最短的边。然后考虑所有标记过的节点，将其和剩余节点看做一个 cut，然后找到最小值的边。当有两个相同最小值时，选择任意一个都行。有时候，MST 不是唯一的。&lt;/p&gt;
+&lt;p&gt;为了让 Prim 算法更高效，在 PQ 中储存节点距离树的距离。然后，找到最小的，将这个点从 fringe 中移除。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-3.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-3_huce238c4564c0dc30b4505c6846c4f518_62224_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-3_huce238c4564c0dc30b4505c6846c4f518_62224_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec24-3.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Dijkastra 考虑距离起点的距离，Prim 考虑距离树的距离。&lt;/p&gt;
+&lt;p&gt;在 E 大于 V 的情况下，时间复杂度为 $O(E\log(V))$。&lt;/p&gt;
+&lt;h2 id=&#34;kruskal-算法&#34;&gt;Kruskal 算法
+&lt;/h2&gt;&lt;p&gt;将所有边排序，从小的开始。如果加入后不导致成环，那就加入。与 Prim 不同，这个在过程中并不一定是互相连接的。&lt;/p&gt;
+&lt;p&gt;每次考虑最小边，将该节点在的一个树与剩余部分看成 Cut，根据性质，最小边在 MST 当中。&lt;/p&gt;
+&lt;p&gt;在实现中，为了判断成环，可以使用并查集。如果当前边对应节点在并查集中不相连，就连接两个节点；否则，说明成环，不能加入该边。为了追踪最小边，使用 PQ。&lt;/p&gt;
+&lt;p&gt;最终的消耗的时间主要取决于将所有边从 PQ 的加入、删除的时间，也就是 $O(E\log(E))$。不过，如果已经知道了图中各个边的大小次序，那么运行时间主要取决于并查集的速度，需要进行 E 次连接、是否连接的操作，总时间缩减到 $O(E\log*V)$。&lt;/p&gt;
+&lt;h1 id=&#34;lec25-multidimentional-data&#34;&gt;lec25 Multidimentional data
+&lt;/h1&gt;&lt;h2 id=&#34;多维数据引入&#34;&gt;多维数据引入
+&lt;/h2&gt;&lt;p&gt;对于多维数据，不能简单地使用一个 BST 达到方便搜索的目的。例如对于有 x、y 坐标的对象，如果使用 x 坐标来构建二叉树，那么可以很方便地找到 x 坐标小于 1.5 的点。&lt;/p&gt;
+&lt;p&gt;通过剪枝，可以减少需要搜索的情况。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-1.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-1_hu401e597a42e4deb747cb39b01a58907c_79356_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-1_hu401e597a42e4deb747cb39b01a58907c_79356_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec25-1.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;多叉树&#34;&gt;多叉树
+&lt;/h2&gt;&lt;h3 id=&#34;四叉树&#34;&gt;四叉树
+&lt;/h3&gt;&lt;p&gt;不像二叉树一样只有两个子节点，四叉树有四个节点，表示在二维空间中四种位置关系。和二叉树一样，不同的插入顺序会影响树的性能。&lt;/p&gt;
+&lt;p&gt;这时，要进行矩形的搜索更方便。如果矩形在某一点的四个区域之内，就可以对剩下的区域进行剪枝。&lt;/p&gt;
+&lt;h3 id=&#34;三维数据&#34;&gt;三维数据
+&lt;/h3&gt;&lt;p&gt;类似地，可以使用八叉树。&lt;/p&gt;
+&lt;p&gt;然而，当维度更高的时候，使用这种思想就不太行，空间会呈指数型增长。&lt;/p&gt;
+&lt;h2 id=&#34;k-d-树&#34;&gt;K-D 树
+&lt;/h2&gt;&lt;p&gt;如果维度为 2，那么根节点根据 x 分类；深度为 1 的节点通过 y 分类；深度为 2 的节点通过 x 分类。以此类推。&lt;/p&gt;
+&lt;p&gt;有时候，如果发现数值相同，需要打破平衡，例如进入右子节点。&lt;/p&gt;
+&lt;p&gt;在寻找距离某个点最近的节点时，也可以使用 k-d 树方便地通过遍历，直到最近节点所在的区域。需要注意，还需要在之前没考虑的区域考虑。这种考虑也要靠近更好的区域。在之后考虑更差的区域时，判断该区域最优情况下的距离是否好于当前值。如果不是，可以剪枝。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-2.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-2_hu549b294597b0b4411ddea887b71718ca_89456_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-2_hu549b294597b0b4411ddea887b71718ca_89456_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec25-2.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-3.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-3_hue347faa4b939d43fe08c37724f19615a_95306_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-3_hue347faa4b939d43fe08c37724f19615a_95306_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec25-3.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-4.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-4_hu2be25a3c098a7469260e02784cd44a8e_89185_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-4_hu2be25a3c098a7469260e02784cd44a8e_89185_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec25-4.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;均匀分割&#34;&gt;均匀分割
+&lt;/h2&gt;&lt;p&gt;将空间分成多个 buckets。在矩形搜索中，只用看在矩形之中的 buckets。不过，性能会比不上四叉树或 k-d 树。&lt;/p&gt;
+&lt;p&gt;均匀分割的思想和 hashing 比较像。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>CS61B week8 学习笔记</title>
         <link>https://ovideros.github.io/p/cs61b-week8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Sat, 27 Jul 2024 00:00:00 +0000</pubDate>

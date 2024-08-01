@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="包括第九周讲座内容">
+<title>CS61B week9 学习笔记</title>
+
+<link rel='canonical' href='https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.80736d734333c1fab997c2536137596072eb0aea65d8215e1cc0b6e1a6c32a63.css"><meta property='og:title' content="CS61B week9 学习笔记">
+<meta property='og:description' content="包括第九周讲座内容">
+<meta property='og:url' content='https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='Ovid的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cs61b' /><meta property='article:tag' content='数据结构与算法' /><meta property='article:tag' content='java' /><meta property='article:tag' content='编程感悟' /><meta property='article:published_time' content='2024-07-31T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-07-31T00:00:00&#43;00:00'/><meta property='og:image' content='https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1.png' />
+<meta name="twitter:title" content="CS61B week9 学习笔记">
+<meta name="twitter:description" content="包括第九周讲座内容"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c9e0ebd40c49c45c61eedb3963d2dba_335916_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😇</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Ovid的博客</a></h1>
+            <h2 class="site-description">学习中...</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/ovideros'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li  class='current' >
+            <a href='/post/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lec23-shortest-paths">lec23 Shortest Paths</a>
+      <ol>
+        <li><a href="#引入">引入</a></li>
+        <li><a href="#尝试">尝试</a>
+          <ol>
+            <li><a href="#第一个算法">第一个算法</a></li>
+            <li><a href="#第二个算法">第二个算法</a></li>
+            <li><a href="#dijkstra">Dijkstra</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#lec24-minimum-spanning-trees">lec24 Minimum Spanning Trees</a>
+      <ol>
+        <li><a href="#引入-1">引入</a></li>
+        <li><a href="#最小生成树">最小生成树</a>
+          <ol>
+            <li><a href="#cut-特性">Cut 特性</a></li>
+          </ol>
+        </li>
+        <li><a href="#prim-算法">Prim 算法</a></li>
+        <li><a href="#kruskal-算法">Kruskal 算法</a></li>
+      </ol>
+    </li>
+    <li><a href="#lec25-multidimentional-data">lec25 Multidimentional data</a>
+      <ol>
+        <li><a href="#多维数据引入">多维数据引入</a></li>
+        <li><a href="#多叉树">多叉树</a>
+          <ol>
+            <li><a href="#四叉树">四叉树</a></li>
+            <li><a href="#三维数据">三维数据</a></li>
+          </ol>
+        </li>
+        <li><a href="#k-d-树">K-D 树</a></li>
+        <li><a href="#均匀分割">均匀分割</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1_hub18ef14dc4183ea9d79e62e98a373d5e_75304_800x0_resize_box_3.png"
+                        srcset="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1_hub18ef14dc4183ea9d79e62e98a373d5e_75304_800x0_resize_box_3.png 800w, /p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1_hub18ef14dc4183ea9d79e62e98a373d5e_75304_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week9 学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    
+    <header class="article-category">
+        
+            <a href="/categories/cs/" >
+                CS
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">CS61B week9 学习笔记</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            包括第九周讲座内容
+        </h3>
+        
+    </div>
+    
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-07-31</time>
+            </div>
+        
+
+         
+        <div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: currentColor;" data-darkreader-inline-stroke="">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" style="--darkreader-inline-stroke: none;" data-darkreader-inline-stroke=""></path>
+  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+  <path d="M9 17h6"></path>
+  <path d="M9 13h6"></path>
+</svg> 
+            <time class="article-words">
+            1824字
+            </time>
+        </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+
+   
+
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="lec23-shortest-paths">lec23 Shortest Paths
+</h1><h2 id="引入">引入
+</h2><p>BFS 只会考虑边的个数。如果每个边有不同的长度，那么就不能简单地使用 BFS。</p>
+<p>显然，最佳的路径不会有圈。</p>
+<p><img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1_hub18ef14dc4183ea9d79e62e98a373d5e_75304_480x0_resize_box_3.png 480w, /p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1_hub18ef14dc4183ea9d79e62e98a373d5e_75304_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec23-1.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
+很有趣的是，最后各个节点的最优路径会形成一棵树。包括有向图和无向图。这个路径成为 Shortest Path Tree（SPT）。</p>
+<p>在 SPT 中，边的个数总数 V-1，V 为节点的个数。</p>
+<h2 id="尝试">尝试
+</h2><h3 id="第一个算法">第一个算法
+</h3><p>一开始所有节点的距离设置为无穷。然后进行深度优先搜索，对于相邻每个节点，如果不在 SPT 中，就加入这个边。然而，这样无法得到最短的路径，因为只要有节点被标记，就不再遍历相应的边。</p>
+<h3 id="第二个算法">第二个算法
+</h3><p>利用深度优先搜索，如果某个边可以产生更短的距离，就将这个边加入 SPT。在这个例子中，考虑 C 之后应该重新考虑 B，才有可能得到最短路径。
+<img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-2.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-2_hu7115eafa975a5f03e98a9368b1cb2372_101123_480x0_resize_box_3.png 480w, /p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-2_hu7115eafa975a5f03e98a9368b1cb2372_101123_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec23-2.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<h3 id="dijkstra">Dijkstra
+</h3><p>不要用深度优先，而是用&quot;best first search&quot;。</p>
+<p>在每一次选择下一个遍历的节点时，聚焦于距离最短的那个节点。然后，计算各个边带来的距离，并且更新最短距离。
+![lec23-2 1.png](lec23-2 1.png)</p>
+<p>将所有的点插入 fringe PQ，储存节点距离源的距离。重复以下步骤：</p>
+<ul>
+<li>从 PQ 中移除距离最小的节点</li>
+<li>更新该节点指向的所有边，包括 <code>distTo</code> 和 <code>edgeTo</code></li>
+</ul>
+<h1 id="lec24-minimum-spanning-trees">lec24 Minimum Spanning Trees
+</h1><h2 id="引入-1">引入
+</h2><p>如何判断一个图当中是否有圈？</p>
+<p>一：使用 DFS。从某个节点开始，直到遇到标记过的节点，但是不包括刚刚来的节点。最差情况是 $\Theta(V+E)$</p>
+<p>二：使用并查集。对于每条边，检查两个节点是否相连。如果没有，就连接。如果有，就代表有环。最差情况为 $O(V+E\log*(V))$</p>
+<h2 id="最小生成树">最小生成树
+</h2><p>只在无向图中存在。生成树是图的一个子集，包含所有节点，并且是连接、无环的。最小生成树意味着每条边的值加起来最小，即 MST。
+<img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-1_hu1875ae7a7fd6686a3eb6fb49c7196bf9_94588_480x0_resize_box_3.png 480w, /p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-1_hu1875ae7a7fd6686a3eb6fb49c7196bf9_94588_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec24-1.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>在有些图中，从某些节点出发的 SPT 并不是 MST，但有些节点是。但有些图中，根本没有 SPT 是 MST。所以，不能通过先确定某个节点，再根据 Dijkstra 来找到 MST。</p>
+<h3 id="cut-特性">Cut 特性
+</h3><p>Cut 将图中节点分类两类非空集合。一个交叉边就是连接两个不同集合节点的边。Cut 特性：给定任意的 Cut，拥有最小值的交叉边一定是 MST 的一部分。这可以通过反证法证明。
+![lec24-2 1.png](lec24-2 1.png)</p>
+<p>利用这个，可以找到一个 cut，它的交叉边都不在 MST 中，然后将最小值加入 MST。不断重复。</p>
+<h2 id="prim-算法">Prim 算法
+</h2><p>第一次选取最短的边。然后考虑所有标记过的节点，将其和剩余节点看做一个 cut，然后找到最小值的边。当有两个相同最小值时，选择任意一个都行。有时候，MST 不是唯一的。</p>
+<p>为了让 Prim 算法更高效，在 PQ 中储存节点距离树的距离。然后，找到最小的，将这个点从 fringe 中移除。
+<img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-3.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-3_huce238c4564c0dc30b4505c6846c4f518_62224_480x0_resize_box_3.png 480w, /p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-3_huce238c4564c0dc30b4505c6846c4f518_62224_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec24-3.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>Dijkastra 考虑距离起点的距离，Prim 考虑距离树的距离。</p>
+<p>在 E 大于 V 的情况下，时间复杂度为 $O(E\log(V))$。</p>
+<h2 id="kruskal-算法">Kruskal 算法
+</h2><p>将所有边排序，从小的开始。如果加入后不导致成环，那就加入。与 Prim 不同，这个在过程中并不一定是互相连接的。</p>
+<p>每次考虑最小边，将该节点在的一个树与剩余部分看成 Cut，根据性质，最小边在 MST 当中。</p>
+<p>在实现中，为了判断成环，可以使用并查集。如果当前边对应节点在并查集中不相连，就连接两个节点；否则，说明成环，不能加入该边。为了追踪最小边，使用 PQ。</p>
+<p>最终的消耗的时间主要取决于将所有边从 PQ 的加入、删除的时间，也就是 $O(E\log(E))$。不过，如果已经知道了图中各个边的大小次序，那么运行时间主要取决于并查集的速度，需要进行 E 次连接、是否连接的操作，总时间缩减到 $O(E\log*V)$。</p>
+<h1 id="lec25-multidimentional-data">lec25 Multidimentional data
+</h1><h2 id="多维数据引入">多维数据引入
+</h2><p>对于多维数据，不能简单地使用一个 BST 达到方便搜索的目的。例如对于有 x、y 坐标的对象，如果使用 x 坐标来构建二叉树，那么可以很方便地找到 x 坐标小于 1.5 的点。</p>
+<p>通过剪枝，可以减少需要搜索的情况。
+<img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-1_hu401e597a42e4deb747cb39b01a58907c_79356_480x0_resize_box_3.png 480w, /p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-1_hu401e597a42e4deb747cb39b01a58907c_79356_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec25-1.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<h2 id="多叉树">多叉树
+</h2><h3 id="四叉树">四叉树
+</h3><p>不像二叉树一样只有两个子节点，四叉树有四个节点，表示在二维空间中四种位置关系。和二叉树一样，不同的插入顺序会影响树的性能。</p>
+<p>这时，要进行矩形的搜索更方便。如果矩形在某一点的四个区域之内，就可以对剩下的区域进行剪枝。</p>
+<h3 id="三维数据">三维数据
+</h3><p>类似地，可以使用八叉树。</p>
+<p>然而，当维度更高的时候，使用这种思想就不太行，空间会呈指数型增长。</p>
+<h2 id="k-d-树">K-D 树
+</h2><p>如果维度为 2，那么根节点根据 x 分类；深度为 1 的节点通过 y 分类；深度为 2 的节点通过 x 分类。以此类推。</p>
+<p>有时候，如果发现数值相同，需要打破平衡，例如进入右子节点。</p>
+<p>在寻找距离某个点最近的节点时，也可以使用 k-d 树方便地通过遍历，直到最近节点所在的区域。需要注意，还需要在之前没考虑的区域考虑。这种考虑也要靠近更好的区域。在之后考虑更差的区域时，判断该区域最优情况下的距离是否好于当前值。如果不是，可以剪枝。
+<img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-2.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-2_hu549b294597b0b4411ddea887b71718ca_89456_480x0_resize_box_3.png 480w, /p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-2_hu549b294597b0b4411ddea887b71718ca_89456_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec25-2.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
+<img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-3.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-3_hue347faa4b939d43fe08c37724f19615a_95306_480x0_resize_box_3.png 480w, /p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-3_hue347faa4b939d43fe08c37724f19615a_95306_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec25-3.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
+<img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-4.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-4_hu2be25a3c098a7469260e02784cd44a8e_89185_480x0_resize_box_3.png 480w, /p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec25-4_hu2be25a3c098a7469260e02784cd44a8e_89185_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec25-4.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<h2 id="均匀分割">均匀分割
+</h2><p>将空间分成多个 buckets。在矩形搜索中，只用看在矩形之中的 buckets。不过，性能会比不上四叉树或 k-d 树。</p>
+<p>均匀分割的思想和 hashing 比较像。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cs61b/">Cs61b</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+        
+            <a href="/tags/java/">Java</a>
+        
+            <a href="/tags/%E7%BC%96%E7%A8%8B%E6%84%9F%E6%82%9F/">编程感悟</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: '\$', right: '\$', display: false }
+                        ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec20-12.9cdd4cd5f974c1c585bd87e88e9dff3b_hu22adb50f6d7a902542e86845e16fef58_73917_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week8 学习笔记"
+                        
+                        data-hash="md5-nN1M1fl0wcWFvYfojp3/Ow==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week8 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1.b83212cb1d2011c64b24c8ea95f472ae_hu5803f0d0359789cfc2af66585133fdd8_43197_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week7 学习笔记"
+                        
+                        data-hash="md5-uDISyx0gEcZLJMjqlfRyrg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week7 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/cs61b-week4-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week4 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week3-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/circular.bc31fcd063493feb44e7a2ce21d3fd86_hu0cb3e8a5ae6461545981ed543138b0ea_88986_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week3 学习笔记"
+                        
+                        data-hash="md5-vDH80GNJP&#43;tE56LOIdP9hg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week3 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/cs61b-week2-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week2 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="ovideros/ovideros.github.io"
+    data-repo-id="R_kgDOMT7tQw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOMT7tQ84Cgtxo"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Ovid的博客
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
