@@ -6,7 +6,221 @@
         <description>Recent content in 数据结构与算法 on Ovid的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 31 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 06 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CS61B week11学习笔记</title>
+        <link>https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Tue, 06 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;img src="https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.png" alt="Featured image of post CS61B week11学习笔记" /&gt;&lt;h1 id=&#34;lec26-prefix-operations-and-tries&#34;&gt;lec26 Prefix Operations and Tries
+&lt;/h1&gt;&lt;h2 id=&#34;引入&#34;&gt;引入
+&lt;/h2&gt;&lt;p&gt;对于 Map 和 Set，已经讨论过了多种实现方式，包括平衡二叉树和哈希表。不过，其实还有其他方式来实现。&lt;/p&gt;
+&lt;h3 id=&#34;字符的-keyed-map&#34;&gt;字符的 keyed map
+&lt;/h3&gt;&lt;p&gt;例如对于 ASCII 字符，可以使用数组。索引为对应的 ASCII 吗，值为对应的字符。显然，时间复杂度为 $\Theta(1)$。&lt;/p&gt;
+&lt;h3 id=&#34;string-的-keyed-map&#34;&gt;String 的 keyed map
+&lt;/h3&gt;&lt;p&gt;在 trie 中，每个节点储存一个字符。如果是蓝色，则代表这个路径的单词存在；如果是白色，则代表不存在。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec26-1.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;搜索&#34;&gt;搜索
+&lt;/h3&gt;&lt;p&gt;在搜索的时候，如果当前字符不在 trie 中，就说明不存在。或者最后一个字符在 trie 中，但是节点是白色，说明该字符串不存在。&lt;/p&gt;
+&lt;h2 id=&#34;trie-的实现与性能&#34;&gt;Trie 的实现与性能
+&lt;/h2&gt;&lt;h3 id=&#34;实现&#34;&gt;实现
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec26-2.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;可以发现，这当中储存的 ch 实际上是多余的。可以仅仅根据对应索引来得到字符。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3_hu8c951c08517707619bdabb4aa3dd8105_99503_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3_hu8c951c08517707619bdabb4aa3dd8105_99503_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec26-3.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;性能&#34;&gt;性能
+&lt;/h3&gt;&lt;p&gt;对于字符串个数 N 来说，Trie 中 add 的时间为 $\Theta(1)$ ，contains 操作也为 $\Theta(1)$。对于字符串长度 L 来说，add 操作为 $\Theta(L)$ ，contains 操作为 $O(L)$。&lt;/p&gt;
+&lt;p&gt;不同数据结构的性能比较如下：
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4_hu28976cce82f20b3a6e41836059edb20d_87013_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4_hu28976cce82f20b3a6e41836059edb20d_87013_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec26-4.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;然而，trie 的缺点也很明显，那就是有很多无效的链接，空间消耗较多。&lt;/p&gt;
+&lt;h3 id=&#34;其他方法&#34;&gt;其他方法
+&lt;/h3&gt;&lt;h4 id=&#34;哈希表&#34;&gt;哈希表
+&lt;/h4&gt;&lt;p&gt;为了避免大量无效的链接，使用哈希表。&lt;/p&gt;
+&lt;h4 id=&#34;二叉树&#34;&gt;二叉树
+&lt;/h4&gt;&lt;p&gt;使用二叉树来表示链接的部分。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec26-5.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;字符串操作&#34;&gt;字符串操作
+&lt;/h2&gt;&lt;h3 id=&#34;找到所有字符串&#34;&gt;找到所有字符串
+&lt;/h3&gt;&lt;p&gt;通过递归，不断调用子节点，收集字符串。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6_hue488d2e6bb3c68b4a0643cf7c605566a_84920_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6_hue488d2e6bb3c68b4a0643cf7c605566a_84920_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec26-6.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;找拥有前缀的字符串&#34;&gt;找拥有前缀的字符串
+&lt;/h3&gt;&lt;p&gt;对于 Trie 来说，比较好用的性质就是得到拥有某一前缀的单词，或者根据某一单词找到最大拥有的前缀。&lt;/p&gt;
+&lt;p&gt;首先根据前缀，找到初始节点，然后调用 &lt;code&gt;colHelp()&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;自动补全&#34;&gt;自动补全
+&lt;/h2&gt;&lt;p&gt;利用字典树，构造从字符串到重要程度的 Map。利用前缀的性质，可以很方便地实现。&lt;/p&gt;
+&lt;p&gt;为了优化算法，每个节点不仅仅储存自身的值，还储存子节点中最优的值。同时利用 PQ。&lt;/p&gt;
+&lt;p&gt;对于没有分支的一串节点，可以压缩成一个节点。这成为 radix tree 或者 radix trie。&lt;/p&gt;
+&lt;h1 id=&#34;lec27-software-engineering-i&#34;&gt;lec27 Software Engineering I
+&lt;/h1&gt;&lt;h2 id=&#34;复杂性&#34;&gt;复杂性
+&lt;/h2&gt;&lt;h3 id=&#34;引入-1&#34;&gt;引入
+&lt;/h3&gt;&lt;p&gt;和其他工程原则不同，软件并不是通过物理原则来限制的。很多时候，最大的限制是要清楚我们在创造什么，也就是创造力。&lt;/p&gt;
+&lt;p&gt;有一些 IDE 工具，调试器，可视化工具等，可以帮助处理复杂性。但是，最重要的原则是保持简单。&lt;/p&gt;
+&lt;p&gt;有两种方式来管理复杂性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;让代码简单、明显（例如使用虚拟头结点来减少特殊情况）&lt;/li&gt;
+&lt;li&gt;封装，模块化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;本质&#34;&gt;本质
+&lt;/h3&gt;&lt;p&gt;复杂性就是任何让人难以理解和修改系统的软件结构。在代码中，例如过多的条件判断，过多的缩进层次等，都会难以理解。&lt;/p&gt;
+&lt;p&gt;如果一小部分的代码相当复杂，但是其他人几乎不会看这些部分，那么总的影响很小。&lt;/p&gt;
+&lt;h3 id=&#34;症状&#34;&gt;症状
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;修改难度：一个简单的改变，需要在多个地方更改。&lt;/li&gt;
+&lt;li&gt;认知难度：要进行一个更改，需要知道多少。
+&lt;ul&gt;
+&lt;li&gt;有时候代码更多，分成小部分，更容易理解。&lt;/li&gt;
+&lt;li&gt;增加变量说明用途，也能减小认知难度。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;未知的未知：甚至不知道需要知道什么，才能进行修改&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;分析&#34;&gt;分析
+&lt;/h3&gt;&lt;p&gt;一开始，程序都是清晰、简单的。但是随着进展，逐渐变得丑陋。许多微妙的互相关联，会导致之后难以修改。尽量每一次更改都要尽可能简洁。&lt;/p&gt;
+&lt;h2 id=&#34;编程方式&#34;&gt;编程方式
+&lt;/h2&gt;&lt;h3 id=&#34;战术式编程&#34;&gt;战术式编程
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;不花时间自考整体的设计&lt;/li&gt;
+&lt;li&gt;增加了许多细小的复杂性&lt;/li&gt;
+&lt;li&gt;每一个复杂性看上去很小，但总体却很大&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;战略性编程&#34;&gt;战略性编程
+&lt;/h3&gt;&lt;p&gt;仅仅可以跑的代码是不够的。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最重要的是长远的系统结构&lt;/li&gt;
+&lt;li&gt;不能为了短期而增加复杂性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于每一个新的类或者任务：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不要只是实现第一想法，而是尝试一些其他想法&lt;/li&gt;
+&lt;li&gt;当你觉得一些方法很清晰，就实现它&lt;/li&gt;
+&lt;li&gt;在现实系统中：思考在未来事情可能需要哪些改变，确保你的设计考虑了这些改变&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;然而，战略性编程也相当难。需要思考设计，同时也很难真正提前设计复杂的软件系统。&lt;/p&gt;
+&lt;h1 id=&#34;lec28-reductions-and-decomposition&#34;&gt;lec28 Reductions and Decomposition
+&lt;/h1&gt;&lt;h2 id=&#34;拓扑排序&#34;&gt;拓扑排序
+&lt;/h2&gt;&lt;p&gt;在有向图中，箭头表示前者必须在后者之前发生。如何找到一种排序，满足这种限制？&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1_hu21a3eb1e6d65736cb0f5f4ef8d86c09f_56939_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1_hu21a3eb1e6d65736cb0f5f4ef8d86c09f_56939_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec28-1.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;
+一开始，可能认为先找到所有“根节点”，也就是没有被指向的节点，然后同时使用 BFS。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2_hue31468456c024975d9131fda89896f3b_73080_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2_hue31468456c024975d9131fda89896f3b_73080_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec28-2.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;
+然而，图稍微变一下，这个方法就不适用了。&lt;/p&gt;
+&lt;p&gt;考虑从起点开始使用 DFS，利用后序记录数字。保留所有标记。然后从另一个起点开始使用后序 DFS，补充在一开始列表的后面。最后翻转列表，得到结果。&lt;/p&gt;
+&lt;p&gt;之后，得到的列表中，指针方向都是向右的。&lt;/p&gt;
+&lt;p&gt;该算法也不一定从头结点开始。可以选择随机的节点，DFS 后，从没有标记的节点中随机选，直到全部标记。&lt;/p&gt;
+&lt;h2 id=&#34;dag-的最短路径&#34;&gt;DAG 的最短路径
+&lt;/h2&gt;&lt;p&gt;DAG 也就是有向无环图。这类图肯定可以拓扑排序。&lt;/p&gt;
+&lt;p&gt;正如之前所说，如果有负值，此时 Dijkstra 可能会失效。为了解决这个问题，先利用拓扑排序，然后利用拓扑排序的顺序来遍历节点，更新每个边。&lt;/p&gt;
+&lt;h2 id=&#34;最长路径&#34;&gt;最长路径
+&lt;/h2&gt;&lt;p&gt;在一般的图当中，没有适用的好算法，只有指数增长的算法。这是一个还没有解决的数学难题。&lt;/p&gt;
+&lt;h3 id=&#34;dag-上的最长路径&#34;&gt;DAG 上的最长路径
+&lt;/h3&gt;&lt;p&gt;只要把值翻转就行。然后，使用 DAG 上的最短路径即可。&lt;/p&gt;
+&lt;h2 id=&#34;reduction&#34;&gt;Reduction
+&lt;/h2&gt;&lt;p&gt;在刚刚的问题中，通过翻转符号，让 DAG 上最长路径问题，转换为了最短路径问题，之后再变换回来，问题得到了解决。这叫做“归约”。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>CS61B week9 学习笔记</title>
         <link>https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Wed, 31 Jul 2024 00:00:00 +0000</pubDate>
