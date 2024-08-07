@@ -6,23 +6,126 @@
         <description>Recent content in 数据结构与算法 on Ovid的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 06 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>CS61B week11学习笔记</title>
-        <link>https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <lastBuildDate>Wed, 07 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CS61B week12 学习笔记</title>
+        <link>https://ovideros.github.io/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <pubDate>Wed, 07 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;img src="https://ovideros.github.io/lec26-1.png" alt="Featured image of post CS61B week12 学习笔记" /&gt;&lt;h1 id=&#34;lec29-basic-sorts&#34;&gt;lec29 Basic Sorts
+&lt;/h1&gt;&lt;h2 id=&#34;排序的性质&#34;&gt;排序的性质
+&lt;/h2&gt;&lt;p&gt;需要满足两点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;三段论：如果 &lt;code&gt;a&amp;lt;b, a=b&lt;/code&gt;，那么 &lt;code&gt;b&amp;lt;a&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;传递性：如果 &lt;code&gt;a&amp;lt;b, b&amp;lt;c&lt;/code&gt;，那么 &lt;code&gt;a&amp;lt;c&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;从另一个观点来看，排序就是让数组中的逆序的数量变为 0。&lt;/p&gt;
+&lt;h2 id=&#34;排序&#34;&gt;排序
+&lt;/h2&gt;&lt;h3 id=&#34;选择排序&#34;&gt;选择排序
+&lt;/h3&gt;&lt;p&gt;简单的算法。每次从数组中选择最小的元素放到前面，那么前面就是从小到大的。重复这个步骤。时间复杂度为 $\Theta(n^2)$。&lt;/p&gt;
+&lt;h3 id=&#34;初始的堆排序&#34;&gt;初始的堆排序
+&lt;/h3&gt;&lt;p&gt;将所有的元素插入 max 堆中，然后重复 N 次：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;从堆中删除最大的元素&lt;/li&gt;
+&lt;li&gt;将最大的元素放在输出数组未使用的后方&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;插入总共耗费 $O(n\log(n))$，选择最大元素耗费 $\Theta(1)$，移除最大元素 n 次，每次消耗 $O(\log(n))$。所以总的时间复杂度为 $O(n\log(n))$。&lt;/p&gt;
+&lt;p&gt;这个方法除了初始数组，还需要新建两个数组：一个为了代表 max 堆，另一个为了储存输出元素。显然，这样对空间的消耗较大。&lt;/p&gt;
+&lt;h3 id=&#34;就地的堆排序&#34;&gt;就地的堆排序
+&lt;/h3&gt;&lt;p&gt;考虑不使用其他数组，而是在输入的基础上使用堆排序。首先，看成是没有排序的堆。因此，需要不断让靠后的元素向上，保证堆的性质。&lt;/p&gt;
+&lt;p&gt;接着，每次删除最大元素，也就是移除第一个元素，然后将最后一个元素放到第一个元素，下沉。最后消耗 $O(n\log(n))$ 的时间。因为不新建数组，所以空间复杂度为 $\Theta(1)$。&lt;/p&gt;
+&lt;h3 id=&#34;归并排序&#34;&gt;归并排序
+&lt;/h3&gt;&lt;p&gt;将数组分成两部分。分别递归让左右排序号，然后新建数组，分别去除两个有序数组的最小项。时间复杂度为 $\Theta(n\log(n))$，空间复杂度为 $\Theta(n)$。&lt;/p&gt;
+&lt;h3 id=&#34;插入排序&#34;&gt;插入排序
+&lt;/h3&gt;&lt;p&gt;每次对于未排序的第一个元素，在排序的元素中比较，向前交换，直到顺序正确。时间复杂度最低为 $\Omega(n)$，最高为 $O(n^2)$。&lt;/p&gt;
+&lt;p&gt;如果有一个几乎排序好的数组，那么插入排序很快。&lt;/p&gt;
+&lt;h3 id=&#34;总结&#34;&gt;总结
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec29-1.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec29-1_hu67d7c687bc99f7b098244d3c11277317_70067_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec29-1_hu67d7c687bc99f7b098244d3c11277317_70067_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec29-1.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;lec30-quick-sort&#34;&gt;lec30 Quick Sort
+&lt;/h1&gt;&lt;h2 id=&#34;插入排序-1&#34;&gt;插入排序
+&lt;/h2&gt;&lt;p&gt;如果有一个排序好的数组。随机选择一个数字，改变该数字。这时候，最好的算法是什么？答案是插入排序。插入排序的时间消耗正比于逆序的数量。&lt;/p&gt;
+&lt;p&gt;同时，对于较小的数组，例如数量小于 15，插入排序也很快。&lt;/p&gt;
+&lt;h2 id=&#34;快速排序&#34;&gt;快速排序
+&lt;/h2&gt;&lt;h3 id=&#34;背景&#34;&gt;背景
+&lt;/h3&gt;&lt;p&gt;假设有一个字典，对应英文和俄文。需要将英文句子里的每个单词翻译成对应的俄文。字典中英文是排序好的，这时候利用二分查找需要 $O(\log(n))$ 的时间。然而，在 60 年代只有磁带来储存，并没有 RAM 的随机读取性能，所以没有二分查找的性能。&lt;/p&gt;
+&lt;p&gt;所以，可以先排序句子，然后扫描一次磁带。然而，这又涉及到排序句子的问题。&lt;/p&gt;
+&lt;h3 id=&#34;partitioning&#34;&gt;Partitioning
+&lt;/h3&gt;&lt;p&gt;找到数组中某个元素 x，然后移动到位置 j，保证左侧的元素都小于等于 x，右侧的元素都大于等于 x。&lt;/p&gt;
+&lt;p&gt;可以三次扫描数组，第一次将小于 x 的元素放到新的数组中，第二次找到 x，第三次将大于 x 的元素放入新数组。也可以用双向队列实现。&lt;/p&gt;
+&lt;h3 id=&#34;实现&#34;&gt;实现
+&lt;/h3&gt;&lt;p&gt;当选择一个元素，进行 partitioning 后，这个元素已经到了正确的位置。接下来，可以利用递归处理剩下的左右两个部分。&lt;/p&gt;
+&lt;h3 id=&#34;性能&#34;&gt;性能
+&lt;/h3&gt;&lt;p&gt;快速排序的性能主要取决于 partition 的操作。在理想的情况下，表现为 $\Theta(n\log(n))$；如果本来就是顺序的，那么此时表现很差，为 $\Theta(n^2)$。&lt;/p&gt;
+&lt;p&gt;快速排序和 BST 的思想很像。可以利用概率论证明，绝大多数情况下，快速排序的性能是 $\Theta(n\log(n))$。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec30-1.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec30-1_hu20efb11046e4d7500bfef95cb1483cda_76348_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec30-1_hu20efb11046e4d7500bfef95cb1483cda_76348_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec30-1.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;lec31-software-engineering-ii&#34;&gt;lec31 Software Engineering II
+&lt;/h1&gt;&lt;h2 id=&#34;复杂的代码&#34;&gt;复杂的代码
+&lt;/h2&gt;&lt;p&gt;复杂的代码有两大特征：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;依赖性：一块代码不能独自地阅读、理解和修改&lt;/li&gt;
+&lt;li&gt;迷惑性：重要的信息不显然&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;模块化设计&#34;&gt;模块化设计
+&lt;/h2&gt;&lt;p&gt;使用模块化设计可以有效减少复杂性，例如使用帮助函数和帮助类。模块一词可以指代很多东西，例如类、包、一段代码等等。模块之间不可能完全独立，但是需要处理好如何在模块之间传递信息。理想情况下，目标就是尽可能减少模块之间的依赖性。&lt;/p&gt;
+&lt;p&gt;最好的模块同时具有简单的接口和复杂的实现方式。通过简单的接口，可以简化调用，并且也方便修改。这就实现了隐藏内部的复杂性。例如，利用红黑树实现 Map，就做到了这一点，外界完全不用直到红黑树是怎么实现的。&lt;/p&gt;
+&lt;p&gt;信息隐藏的反面就是信息暴露。如果在较高的抽象层直接从很低的抽象层操纵事务，就会导致复杂性很高。软件工程师的必要技能之一就是敏锐地察觉到信息暴露的情况。&lt;/p&gt;
+&lt;p&gt;推荐的做法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创造类和接口，实现封装复杂性。&lt;/li&gt;
+&lt;li&gt;创造 &amp;lsquo;deep&amp;rsquo;的模块，拥有简单地接口和复杂的实现方式。&lt;/li&gt;
+&lt;li&gt;不要过度依赖“暂时分解模块”。&lt;/li&gt;
+&lt;li&gt;战略性，而不是战术性。&lt;/li&gt;
+&lt;li&gt;为你自己隐藏信息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;团队协作&#34;&gt;团队协作
+&lt;/h2&gt;&lt;p&gt;有些团队在各种工作中都做得很好，有的相反。这就引出了团队智力。但是，团队智力并不是个体智力的平均值或最高值。&lt;/p&gt;
+&lt;p&gt;团队智力与社会关系的敏感度有关，以及成员之间是否充分参与。团队协作和人际关系高度相关。&lt;/p&gt;
+&lt;p&gt;接受反馈有时候会感觉糟糕。不过，要认识到建设性的反馈肯定是有益的。同时，也要学会正确地提供反馈。&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>CS61B week11 学习笔记</title>
+        <link>https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Tue, 06 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;img src="https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.png" alt="Featured image of post CS61B week11学习笔记" /&gt;&lt;h1 id=&#34;lec26-prefix-operations-and-tries&#34;&gt;lec26 Prefix Operations and Tries
+        <guid>https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+        <description>&lt;img src="https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.png" alt="Featured image of post CS61B week11 学习笔记" /&gt;&lt;h1 id=&#34;lec26-prefix-operations-and-tries&#34;&gt;lec26 Prefix Operations and Tries
 &lt;/h1&gt;&lt;h2 id=&#34;引入&#34;&gt;引入
 &lt;/h2&gt;&lt;p&gt;对于 Map 和 Set，已经讨论过了多种实现方式，包括平衡二叉树和哈希表。不过，其实还有其他方式来实现。&lt;/p&gt;
 &lt;h3 id=&#34;字符的-keyed-map&#34;&gt;字符的 keyed map
 &lt;/h3&gt;&lt;p&gt;例如对于 ASCII 字符，可以使用数组。索引为对应的 ASCII 吗，值为对应的字符。显然，时间复杂度为 $\Theta(1)$。&lt;/p&gt;
 &lt;h3 id=&#34;string-的-keyed-map&#34;&gt;String 的 keyed map
 &lt;/h3&gt;&lt;p&gt;在 trie 中，每个节点储存一个字符。如果是蓝色，则代表这个路径的单词存在；如果是白色，则代表不存在。
-&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.png&#34;
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
-	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;lec26-1.png&#34;
@@ -37,10 +140,10 @@
 &lt;/h3&gt;&lt;p&gt;在搜索的时候，如果当前字符不在 trie 中，就说明不存在。或者最后一个字符在 trie 中，但是节点是白色，说明该字符串不存在。&lt;/p&gt;
 &lt;h2 id=&#34;trie-的实现与性能&#34;&gt;Trie 的实现与性能
 &lt;/h2&gt;&lt;h3 id=&#34;实现&#34;&gt;实现
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2.png&#34;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
-	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;lec26-2.png&#34;
@@ -52,10 +155,10 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;可以发现，这当中储存的 ch 实际上是多余的。可以仅仅根据对应索引来得到字符。
-&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3.png&#34;
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
-	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3_hu8c951c08517707619bdabb4aa3dd8105_99503_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3_hu8c951c08517707619bdabb4aa3dd8105_99503_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3_hu8c951c08517707619bdabb4aa3dd8105_99503_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3_hu8c951c08517707619bdabb4aa3dd8105_99503_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;lec26-3.png&#34;
@@ -69,10 +172,10 @@
 &lt;h3 id=&#34;性能&#34;&gt;性能
 &lt;/h3&gt;&lt;p&gt;对于字符串个数 N 来说，Trie 中 add 的时间为 $\Theta(1)$ ，contains 操作也为 $\Theta(1)$。对于字符串长度 L 来说，add 操作为 $\Theta(L)$ ，contains 操作为 $O(L)$。&lt;/p&gt;
 &lt;p&gt;不同数据结构的性能比较如下：
-&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4.png&#34;
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
-	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4_hu28976cce82f20b3a6e41836059edb20d_87013_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4_hu28976cce82f20b3a6e41836059edb20d_87013_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4_hu28976cce82f20b3a6e41836059edb20d_87013_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4_hu28976cce82f20b3a6e41836059edb20d_87013_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;lec26-4.png&#34;
@@ -89,10 +192,10 @@
 &lt;/h4&gt;&lt;p&gt;为了避免大量无效的链接，使用哈希表。&lt;/p&gt;
 &lt;h4 id=&#34;二叉树&#34;&gt;二叉树
 &lt;/h4&gt;&lt;p&gt;使用二叉树来表示链接的部分。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
-	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;lec26-5.png&#34;
@@ -106,10 +209,10 @@
 &lt;h2 id=&#34;字符串操作&#34;&gt;字符串操作
 &lt;/h2&gt;&lt;h3 id=&#34;找到所有字符串&#34;&gt;找到所有字符串
 &lt;/h3&gt;&lt;p&gt;通过递归，不断调用子节点，收集字符串。
-&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6.png&#34;
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
-	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6_hue488d2e6bb3c68b4a0643cf7c605566a_84920_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6_hue488d2e6bb3c68b4a0643cf7c605566a_84920_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6_hue488d2e6bb3c68b4a0643cf7c605566a_84920_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6_hue488d2e6bb3c68b4a0643cf7c605566a_84920_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;lec26-6.png&#34;
@@ -176,10 +279,10 @@
 &lt;h1 id=&#34;lec28-reductions-and-decomposition&#34;&gt;lec28 Reductions and Decomposition
 &lt;/h1&gt;&lt;h2 id=&#34;拓扑排序&#34;&gt;拓扑排序
 &lt;/h2&gt;&lt;p&gt;在有向图中，箭头表示前者必须在后者之前发生。如何找到一种排序，满足这种限制？&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
-	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1_hu21a3eb1e6d65736cb0f5f4ef8d86c09f_56939_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1_hu21a3eb1e6d65736cb0f5f4ef8d86c09f_56939_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1_hu21a3eb1e6d65736cb0f5f4ef8d86c09f_56939_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1_hu21a3eb1e6d65736cb0f5f4ef8d86c09f_56939_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;lec28-1.png&#34;
@@ -191,10 +294,10 @@
 	
 &gt;
 一开始，可能认为先找到所有“根节点”，也就是没有被指向的节点，然后同时使用 BFS。
-&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2.png&#34;
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
-	srcset=&#34;https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2_hue31468456c024975d9131fda89896f3b_73080_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2_hue31468456c024975d9131fda89896f3b_73080_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2_hue31468456c024975d9131fda89896f3b_73080_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2_hue31468456c024975d9131fda89896f3b_73080_1024x0_resize_box_3.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;lec28-2.png&#34;

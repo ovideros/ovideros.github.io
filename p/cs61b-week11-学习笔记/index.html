@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="包括第十一周讲座内容">
+<title>CS61B week11 学习笔记</title>
+
+<link rel='canonical' href='https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.80736d734333c1fab997c2536137596072eb0aea65d8215e1cc0b6e1a6c32a63.css"><meta property='og:title' content="CS61B week11 学习笔记">
+<meta property='og:description' content="包括第十一周讲座内容">
+<meta property='og:url' content='https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='Ovid的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cs61b' /><meta property='article:tag' content='数据结构与算法' /><meta property='article:tag' content='java' /><meta property='article:tag' content='编程感悟' /><meta property='article:published_time' content='2024-08-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-06T00:00:00&#43;00:00'/><meta property='og:image' content='https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.png' />
+<meta name="twitter:title" content="CS61B week11 学习笔记">
+<meta name="twitter:description" content="包括第十一周讲座内容"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c9e0ebd40c49c45c61eedb3963d2dba_335916_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😇</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Ovid的博客</a></h1>
+            <h2 class="site-description">学习中...</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/ovideros'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li  class='current' >
+            <a href='/post/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lec26-prefix-operations-and-tries">lec26 Prefix Operations and Tries</a>
+      <ol>
+        <li><a href="#引入">引入</a>
+          <ol>
+            <li><a href="#字符的-keyed-map">字符的 keyed map</a></li>
+            <li><a href="#string-的-keyed-map">String 的 keyed map</a></li>
+            <li><a href="#搜索">搜索</a></li>
+          </ol>
+        </li>
+        <li><a href="#trie-的实现与性能">Trie 的实现与性能</a>
+          <ol>
+            <li><a href="#实现">实现</a></li>
+            <li><a href="#性能">性能</a></li>
+            <li><a href="#其他方法">其他方法</a>
+              <ol>
+                <li><a href="#哈希表">哈希表</a></li>
+                <li><a href="#二叉树">二叉树</a></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#字符串操作">字符串操作</a>
+          <ol>
+            <li><a href="#找到所有字符串">找到所有字符串</a></li>
+            <li><a href="#找拥有前缀的字符串">找拥有前缀的字符串</a></li>
+          </ol>
+        </li>
+        <li><a href="#自动补全">自动补全</a></li>
+      </ol>
+    </li>
+    <li><a href="#lec27-software-engineering-i">lec27 Software Engineering I</a>
+      <ol>
+        <li><a href="#复杂性">复杂性</a>
+          <ol>
+            <li><a href="#引入-1">引入</a></li>
+            <li><a href="#本质">本质</a></li>
+            <li><a href="#症状">症状</a></li>
+            <li><a href="#分析">分析</a></li>
+          </ol>
+        </li>
+        <li><a href="#编程方式">编程方式</a>
+          <ol>
+            <li><a href="#战术式编程">战术式编程</a></li>
+            <li><a href="#战略性编程">战略性编程</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#lec28-reductions-and-decomposition">lec28 Reductions and Decomposition</a>
+      <ol>
+        <li><a href="#拓扑排序">拓扑排序</a></li>
+        <li><a href="#dag-的最短路径">DAG 的最短路径</a></li>
+        <li><a href="#最长路径">最长路径</a>
+          <ol>
+            <li><a href="#dag-上的最长路径">DAG 上的最长路径</a></li>
+          </ol>
+        </li>
+        <li><a href="#reduction">Reduction</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_800x0_resize_box_3.png"
+                        srcset="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_800x0_resize_box_3.png 800w, /p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week11 学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    
+    <header class="article-category">
+        
+            <a href="/categories/cs/" >
+                CS
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">CS61B week11 学习笔记</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            包括第十一周讲座内容
+        </h3>
+        
+    </div>
+    
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-08-06</time>
+            </div>
+        
+
+         
+        <div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: currentColor;" data-darkreader-inline-stroke="">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" style="--darkreader-inline-stroke: none;" data-darkreader-inline-stroke=""></path>
+  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+  <path d="M9 17h6"></path>
+  <path d="M9 13h6"></path>
+</svg> 
+            <time class="article-words">
+            1783字
+            </time>
+        </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+
+   
+
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="lec26-prefix-operations-and-tries">lec26 Prefix Operations and Tries
+</h1><h2 id="引入">引入
+</h2><p>对于 Map 和 Set，已经讨论过了多种实现方式，包括平衡二叉树和哈希表。不过，其实还有其他方式来实现。</p>
+<h3 id="字符的-keyed-map">字符的 keyed map
+</h3><p>例如对于 ASCII 字符，可以使用数组。索引为对应的 ASCII 吗，值为对应的字符。显然，时间复杂度为 $\Theta(1)$。</p>
+<h3 id="string-的-keyed-map">String 的 keyed map
+</h3><p>在 trie 中，每个节点储存一个字符。如果是蓝色，则代表这个路径的单词存在；如果是白色，则代表不存在。
+<img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_480x0_resize_box_3.png 480w, /p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1_hu870e4ef5e45382ab863acbdb14b0a577_64648_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec26-1.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<h3 id="搜索">搜索
+</h3><p>在搜索的时候，如果当前字符不在 trie 中，就说明不存在。或者最后一个字符在 trie 中，但是节点是白色，说明该字符串不存在。</p>
+<h2 id="trie-的实现与性能">Trie 的实现与性能
+</h2><h3 id="实现">实现
+</h3><p><img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_480x0_resize_box_3.png 480w, /p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec26-2.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>可以发现，这当中储存的 ch 实际上是多余的。可以仅仅根据对应索引来得到字符。
+<img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3_hu8c951c08517707619bdabb4aa3dd8105_99503_480x0_resize_box_3.png 480w, /p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-3_hu8c951c08517707619bdabb4aa3dd8105_99503_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec26-3.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<h3 id="性能">性能
+</h3><p>对于字符串个数 N 来说，Trie 中 add 的时间为 $\Theta(1)$ ，contains 操作也为 $\Theta(1)$。对于字符串长度 L 来说，add 操作为 $\Theta(L)$ ，contains 操作为 $O(L)$。</p>
+<p>不同数据结构的性能比较如下：
+<img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4_hu28976cce82f20b3a6e41836059edb20d_87013_480x0_resize_box_3.png 480w, /p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-4_hu28976cce82f20b3a6e41836059edb20d_87013_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec26-4.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>然而，trie 的缺点也很明显，那就是有很多无效的链接，空间消耗较多。</p>
+<h3 id="其他方法">其他方法
+</h3><h4 id="哈希表">哈希表
+</h4><p>为了避免大量无效的链接，使用哈希表。</p>
+<h4 id="二叉树">二叉树
+</h4><p>使用二叉树来表示链接的部分。</p>
+<p><img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_480x0_resize_box_3.png 480w, /p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec26-5.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<h2 id="字符串操作">字符串操作
+</h2><h3 id="找到所有字符串">找到所有字符串
+</h3><p>通过递归，不断调用子节点，收集字符串。
+<img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6_hue488d2e6bb3c68b4a0643cf7c605566a_84920_480x0_resize_box_3.png 480w, /p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-6_hue488d2e6bb3c68b4a0643cf7c605566a_84920_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec26-6.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<h3 id="找拥有前缀的字符串">找拥有前缀的字符串
+</h3><p>对于 Trie 来说，比较好用的性质就是得到拥有某一前缀的单词，或者根据某一单词找到最大拥有的前缀。</p>
+<p>首先根据前缀，找到初始节点，然后调用 <code>colHelp()</code>。</p>
+<h2 id="自动补全">自动补全
+</h2><p>利用字典树，构造从字符串到重要程度的 Map。利用前缀的性质，可以很方便地实现。</p>
+<p>为了优化算法，每个节点不仅仅储存自身的值，还储存子节点中最优的值。同时利用 PQ。</p>
+<p>对于没有分支的一串节点，可以压缩成一个节点。这成为 radix tree 或者 radix trie。</p>
+<h1 id="lec27-software-engineering-i">lec27 Software Engineering I
+</h1><h2 id="复杂性">复杂性
+</h2><h3 id="引入-1">引入
+</h3><p>和其他工程原则不同，软件并不是通过物理原则来限制的。很多时候，最大的限制是要清楚我们在创造什么，也就是创造力。</p>
+<p>有一些 IDE 工具，调试器，可视化工具等，可以帮助处理复杂性。但是，最重要的原则是保持简单。</p>
+<p>有两种方式来管理复杂性：</p>
+<ul>
+<li>让代码简单、明显（例如使用虚拟头结点来减少特殊情况）</li>
+<li>封装，模块化</li>
+</ul>
+<h3 id="本质">本质
+</h3><p>复杂性就是任何让人难以理解和修改系统的软件结构。在代码中，例如过多的条件判断，过多的缩进层次等，都会难以理解。</p>
+<p>如果一小部分的代码相当复杂，但是其他人几乎不会看这些部分，那么总的影响很小。</p>
+<h3 id="症状">症状
+</h3><ul>
+<li>修改难度：一个简单的改变，需要在多个地方更改。</li>
+<li>认知难度：要进行一个更改，需要知道多少。
+<ul>
+<li>有时候代码更多，分成小部分，更容易理解。</li>
+<li>增加变量说明用途，也能减小认知难度。</li>
+</ul>
+</li>
+<li>未知的未知：甚至不知道需要知道什么，才能进行修改</li>
+</ul>
+<h3 id="分析">分析
+</h3><p>一开始，程序都是清晰、简单的。但是随着进展，逐渐变得丑陋。许多微妙的互相关联，会导致之后难以修改。尽量每一次更改都要尽可能简洁。</p>
+<h2 id="编程方式">编程方式
+</h2><h3 id="战术式编程">战术式编程
+</h3><ul>
+<li>不花时间自考整体的设计</li>
+<li>增加了许多细小的复杂性</li>
+<li>每一个复杂性看上去很小，但总体却很大</li>
+</ul>
+<h3 id="战略性编程">战略性编程
+</h3><p>仅仅可以跑的代码是不够的。</p>
+<ul>
+<li>最重要的是长远的系统结构</li>
+<li>不能为了短期而增加复杂性</li>
+</ul>
+<p>对于每一个新的类或者任务：</p>
+<ul>
+<li>不要只是实现第一想法，而是尝试一些其他想法</li>
+<li>当你觉得一些方法很清晰，就实现它</li>
+<li>在现实系统中：思考在未来事情可能需要哪些改变，确保你的设计考虑了这些改变</li>
+</ul>
+<p>然而，战略性编程也相当难。需要思考设计，同时也很难真正提前设计复杂的软件系统。</p>
+<h1 id="lec28-reductions-and-decomposition">lec28 Reductions and Decomposition
+</h1><h2 id="拓扑排序">拓扑排序
+</h2><p>在有向图中，箭头表示前者必须在后者之前发生。如何找到一种排序，满足这种限制？</p>
+<p><img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1_hu21a3eb1e6d65736cb0f5f4ef8d86c09f_56939_480x0_resize_box_3.png 480w, /p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-1_hu21a3eb1e6d65736cb0f5f4ef8d86c09f_56939_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec28-1.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
+一开始，可能认为先找到所有“根节点”，也就是没有被指向的节点，然后同时使用 BFS。
+<img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2_hue31468456c024975d9131fda89896f3b_73080_480x0_resize_box_3.png 480w, /p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec28-2_hue31468456c024975d9131fda89896f3b_73080_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec28-2.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+>
+然而，图稍微变一下，这个方法就不适用了。</p>
+<p>考虑从起点开始使用 DFS，利用后序记录数字。保留所有标记。然后从另一个起点开始使用后序 DFS，补充在一开始列表的后面。最后翻转列表，得到结果。</p>
+<p>之后，得到的列表中，指针方向都是向右的。</p>
+<p>该算法也不一定从头结点开始。可以选择随机的节点，DFS 后，从没有标记的节点中随机选，直到全部标记。</p>
+<h2 id="dag-的最短路径">DAG 的最短路径
+</h2><p>DAG 也就是有向无环图。这类图肯定可以拓扑排序。</p>
+<p>正如之前所说，如果有负值，此时 Dijkstra 可能会失效。为了解决这个问题，先利用拓扑排序，然后利用拓扑排序的顺序来遍历节点，更新每个边。</p>
+<h2 id="最长路径">最长路径
+</h2><p>在一般的图当中，没有适用的好算法，只有指数增长的算法。这是一个还没有解决的数学难题。</p>
+<h3 id="dag-上的最长路径">DAG 上的最长路径
+</h3><p>只要把值翻转就行。然后，使用 DAG 上的最短路径即可。</p>
+<h2 id="reduction">Reduction
+</h2><p>在刚刚的问题中，通过翻转符号，让 DAG 上最长路径问题，转换为了最短路径问题，之后再变换回来，问题得到了解决。这叫做“归约”。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cs61b/">Cs61b</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+        
+            <a href="/tags/java/">Java</a>
+        
+            <a href="/tags/%E7%BC%96%E7%A8%8B%E6%84%9F%E6%82%9F/">编程感悟</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: '\$', right: '\$', display: false }
+                        ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/lec26-1.png" loading="lazy" data-key="" data-hash="/lec26-1.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week12 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1.41bcd667217c78a6c41ba9525bbb0e2b_hub18ef14dc4183ea9d79e62e98a373d5e_75304_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week9 学习笔记"
+                        
+                        data-hash="md5-QbzWZyF8eKbEG6lSW7sOKw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week9 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec20-12.9cdd4cd5f974c1c585bd87e88e9dff3b_hu22adb50f6d7a902542e86845e16fef58_73917_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week8 学习笔记"
+                        
+                        data-hash="md5-nN1M1fl0wcWFvYfojp3/Ow==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week8 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-1.b83212cb1d2011c64b24c8ea95f472ae_hu5803f0d0359789cfc2af66585133fdd8_43197_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week7 学习笔记"
+                        
+                        data-hash="md5-uDISyx0gEcZLJMjqlfRyrg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week7 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/cs61b-week4-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week4 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="ovideros/ovideros.github.io"
+    data-repo-id="R_kgDOMT7tQw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOMT7tQ84Cgtxo"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Ovid的博客
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
