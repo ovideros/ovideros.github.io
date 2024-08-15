@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="包括第十四周讲座内容">
+<title>CS61B week14 学习笔记</title>
+
+<link rel='canonical' href='https://ovideros.github.io/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.80736d734333c1fab997c2536137596072eb0aea65d8215e1cc0b6e1a6c32a63.css"><meta property='og:title' content="CS61B week14 学习笔记">
+<meta property='og:description' content="包括第十四周讲座内容">
+<meta property='og:url' content='https://ovideros.github.io/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='Ovid的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cs61b' /><meta property='article:tag' content='数据结构与算法' /><meta property='article:tag' content='java' /><meta property='article:tag' content='编程感悟' /><meta property='article:published_time' content='2024-08-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://ovideros.github.io/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1.png' />
+<meta name="twitter:title" content="CS61B week14 学习笔记">
+<meta name="twitter:description" content="包括第十四周讲座内容"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://ovideros.github.io/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+  
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu6c9e0ebd40c49c45c61eedb3963d2dba_335916_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😇</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Ovid的博客</a></h1>
+            <h2 class="site-description">学习中...</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/ovideros'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li  class='current' >
+            <a href='/post/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lec35-radix-sorts">lec35 Radix Sorts</a>
+      <ol>
+        <li><a href="#例子">例子</a>
+          <ol>
+            <li><a href="#sleep-sort">Sleep Sort</a></li>
+            <li><a href="#counting-sort">Counting Sort</a></li>
+          </ol>
+        </li>
+        <li><a href="#lsd-radix-sort">LSD Radix Sort</a></li>
+        <li><a href="#msd-radix-sort">MSD Radix Sort</a></li>
+      </ol>
+    </li>
+    <li><a href="#lec36-sorting-and-data-structures-conclusion">lec36 Sorting and Data Structures Conclusion</a></li>
+    <li><a href="#基数排序与归并排序比较">基数排序与归并排序比较</a>
+      <ol>
+        <li><a href="#大致理论分析">大致理论分析</a></li>
+        <li><a href="#理论计算">理论计算</a></li>
+        <li><a href="#实践比较">实践比较</a></li>
+      </ol>
+    </li>
+    <li><a href="#使用基数排序排整数">使用基数排序排整数</a></li>
+    <li><a href="#排序总结">排序总结</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1_hu4adb9e6b53dd5cd4474a8761183b7394_91301_800x0_resize_box_3.png"
+                        srcset="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1_hu4adb9e6b53dd5cd4474a8761183b7394_91301_800x0_resize_box_3.png 800w, /p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1_hu4adb9e6b53dd5cd4474a8761183b7394_91301_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week14 学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    
+    <header class="article-category">
+        
+            <a href="/categories/cs/" >
+                CS
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">CS61B week14 学习笔记</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            包括第十四周讲座内容
+        </h3>
+        
+    </div>
+    
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-08-15</time>
+            </div>
+        
+
+         
+        <div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-description" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="--darkreader-inline-stroke: currentColor;" data-darkreader-inline-stroke="">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" style="--darkreader-inline-stroke: none;" data-darkreader-inline-stroke=""></path>
+  <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+  <path d="M9 17h6"></path>
+  <path d="M9 13h6"></path>
+</svg> 
+            <time class="article-words">
+            1168字
+            </time>
+        </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+
+   
+
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="lec35-radix-sorts">lec35 Radix Sorts
+</h1><h2 id="例子">例子
+</h2><h3 id="sleep-sort">Sleep Sort
+</h3><p>对于整数数组，遇到整数 x，就睡觉 x 秒，然后打印出 x。</p>
+<h3 id="counting-sort">Counting Sort
+</h3><p>对于从 0 开始的连续整数，创造一个新的数组，每次将整数放到相应的索引处。时间复杂度为 $\Theta(n)$。这里没有比较。</p>
+<p>让这个想法一般化。首先扫描数组，使用一个另数组来记录元素和对应的个数。然后，计算出每个元素在数组中开始的位置。每次放入一个元素，就更新元素开始的位置。显然，这样的排序会保留原先的顺序，具有稳定性。
+<img src="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-1_hu98ac5b759b57cb132b587809052bf080_52925_480x0_resize_box_3.png 480w, /p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-1_hu98ac5b759b57cb132b587809052bf080_52925_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec35-1.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>但是，对于很大范围的数据，计数排序会创造空间很大的数组，消耗较多时间。</p>
+<p>对于有 N 个 keys，使用 R 个元素的字符表，那么计数排序的耗时为 $\Theta(N+R)$，空间一样。所以当 N 大于 R 时，得到的性能不错。</p>
+<p>计数排序只适用于数值有限的数组，不适用于字符串。</p>
+<h2 id="lsd-radix-sort">LSD Radix Sort
+</h2><p>LSD 指的是 Least Significant Digit，也就是最后一位。
+<img src="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-2.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-2_hu5d4371924a9b7c329b95e2e10ce925c7_93429_480x0_resize_box_3.png 480w, /p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-2_hu5d4371924a9b7c329b95e2e10ce925c7_93429_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec35-2.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p>因为计数排序是稳定的，所以第二次排序的时候，末位的顺序是正确的。将花色换成数字也是正确的。</p>
+<p>设 W 是位数的长度。那么时间复杂度为 $\Theta(WN+WR)$。当位数不一样时，将前面的位数看成比其他字符更小的字符。</p>
+<h2 id="msd-radix-sort">MSD Radix Sort
+</h2><p>MSD 代表 Most Significant Digit。对于很长的字符串，从末位开始比较耗时间。直接先比第一个，然后比第二个，会打乱原先顺序。因此，需要分成子问题来处理。</p>
+<p>只要分成了首尾，那么只对首位相同的使用第二位的计数排序。如此递归下去。</p>
+<p>在最好情况下，只需要看第一位，复杂度为 $\Theta(N+R)$；最坏情况下，需要看每一位，复杂度为 $\Theta(WN+WR)$。然而，和堆排序一样，MSD Sort 对于 caching 也不好。
+<img src="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-3.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-3_hu7127f146a8cee01c14c2552fdc8a5539_81334_480x0_resize_box_3.png 480w, /p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-3_hu7127f146a8cee01c14c2552fdc8a5539_81334_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec35-3.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<h1 id="lec36-sorting-and-data-structures-conclusion">lec36 Sorting and Data Structures Conclusion
+</h1><h1 id="基数排序与归并排序比较">基数排序与归并排序比较
+</h1><h2 id="大致理论分析">大致理论分析
+</h2><p>如果归并排序作用到长度为 W 的字符串上，时间是多少呢？如果每次字符的比较都消耗时间，也就是字符串全都相等，那么最终的耗时就是 $\Theta(WN\log(N))$。</p>
+<p>基数排序作用到这个数据上，需要消耗 $\Theta(WN)$ 的时间。理论上来讲，当 N 相当大的时候，并且字符串前面几乎相同时，基数排序更快。</p>
+<h2 id="理论计算">理论计算
+</h2><p>通过计算，对于长度 1000 的 1000 个字符串，归并排序的比较次数比 MSD 多了 6 倍多。</p>
+<h2 id="实践比较">实践比较
+</h2><p>实践中发现，归并排序比 MSD 快得多，不符合理论。可能是刚刚的模型有问题，只考虑到了比较，没有考虑内存和其他计算。</p>
+<p>也有一个很重要的问题：Java 有 Just In Time 编译器。如果某段代码被调用了许多次，编译器会根据它的表现，重新实现代码，大大提高性能。</p>
+<p>在这个例子中，经过两次优化后，性能提高了几百倍甚至几万倍。</p>
+<p>如果关闭 JIT，那么时间的结果比较吻合理论分析。这告诉我们，算法的执行会受到很多因素的影响，时间复杂度只是其中的一小部分。很多时候只有真正跑起来才能比较性能。</p>
+<h1 id="使用基数排序排整数">使用基数排序排整数
+</h1><p>对于整数，可以使用不同的进制，例如 10、16、256、65336 等等。如果要排列一亿个 int，根据实验，Java 默认的快速排序需要花费 10.9 秒，而基数为 256 的时候表现最好，需要 2.28 秒。</p>
+<h1 id="排序总结">排序总结
+</h1><p><img src="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1.png"
+	width="960"
+	height="540"
+	srcset="/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1_hu4adb9e6b53dd5cd4474a8761183b7394_91301_480x0_resize_box_3.png 480w, /p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1_hu4adb9e6b53dd5cd4474a8761183b7394_91301_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="lec36-1.png"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cs61b/">Cs61b</a>
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+        
+            <a href="/tags/java/">Java</a>
+        
+            <a href="/tags/%E7%BC%96%E7%A8%8B%E6%84%9F%E6%82%9F/">编程感悟</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: '\$', right: '\$', display: false }
+                        ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week13-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week13-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec32-1.839a398d71f31938c61da6326243d2f3_hu20efb11046e4d7500bfef95cb1483cda_74601_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week13 学习笔记"
+                        
+                        data-hash="md5-g5o5jXHzGTjGHaYyYkPS8w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week13 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week12-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec29-1.cc33af7dc8d76ba268470f6aec1823a3_hu67d7c687bc99f7b098244d3c11277317_70067_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week12 学习笔记"
+                        
+                        data-hash="md5-zDOvfcjXa6JoRw9q7Bgjow==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week12 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-1.45770d9cd367b5b9e0e84f761ab0228b_hu870e4ef5e45382ab863acbdb14b0a577_64648_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week11 学习笔记"
+                        
+                        data-hash="md5-RXcNnNNntbng6E92GrAiiw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week11 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-1.41bcd667217c78a6c41ba9525bbb0e2b_hub18ef14dc4183ea9d79e62e98a373d5e_75304_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week9 学习笔记"
+                        
+                        data-hash="md5-QbzWZyF8eKbEG6lSW7sOKw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week9 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/cs61b-week8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/cs61b-week8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec20-12.9cdd4cd5f974c1c585bd87e88e9dff3b_hu22adb50f6d7a902542e86845e16fef58_73917_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CS61B week8 学习笔记"
+                        
+                        data-hash="md5-nN1M1fl0wcWFvYfojp3/Ow==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CS61B week8 学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="ovideros/ovideros.github.io"
+    data-repo-id="R_kgDOMT7tQw"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOMT7tQ84Cgtxo"
+    data-mapping="title"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('preferred_color_scheme');
+            } else {
+                setGiscusTheme('preferred_color_scheme');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Ovid的博客
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
