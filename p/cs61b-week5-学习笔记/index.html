@@ -342,7 +342,7 @@
   <path d="M9 13h6"></path>
 </svg> 
             <time class="article-words">
-            452字
+            450字
             </time>
         </div>
         
@@ -390,13 +390,13 @@
 <h3 id="方案-5">方案 5
 </h3><p>使用 hash。Git 使用的是 git-SHA 1 hash，有 160 bit 长。</p>
 <ul>
-<li>计算 git-SHA 1 hash。例如为 66 ccdc&hellip;</li>
+<li>计算 git-SHA 1 hash。例如为 66ccdc&hellip;</li>
 <li>创造文件夹 <code>.git/objects/66</code></li>
-<li>将文件储存在名为 66 ccdc&hellip; 的文件中（使用了压缩）</li>
+<li>将文件储存在名为 66ccdc&hellip; 的文件中（使用了压缩）</li>
 </ul>
 <p>Hash 可能会碰撞，但是概率相当相当小，可以忽略。同时，Hash 也可以更安全。</p>
 <h3 id="commit">Commit
-</h3><p>Commit 的命令也储存在 objects 中。Commit 包含坐着，日期，message，文件和版本的表格，parent ID。对这些使用 git-SHA 1。</p>
+</h3><p>Commit 的命令也储存在 objects 中。Commit 包含作者，日期，message，文件和版本的表格，parent ID。对这些使用 git-SHA 1。</p>
 <h3 id="merge">Merge
 </h3><p>在解决冲突过后，新的 commit 拥有两个 parents。这种结构是图。</p>
 <h1 id="lec13-asymptotics-i">lec13 Asymptotics I

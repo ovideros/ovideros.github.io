@@ -321,6 +321,7 @@
         <li><a href="#实现">实现</a></li>
         <li><a href="#搜索">搜索</a></li>
         <li><a href="#插入">插入</a></li>
+        <li><a href="#删除">删除</a></li>
       </ol>
     </li>
   </ol>
@@ -403,7 +404,7 @@
   <path d="M9 13h6"></path>
 </svg> 
             <time class="article-words">
-            3987字
+            4654字
             </time>
         </div>
         
@@ -419,7 +420,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 8 分钟
+                    阅读时长: 10 分钟
                 </time>
             </div>
         
@@ -506,7 +507,7 @@
 		data-flex-basis="426px"
 	
 >
-如果大于 3 个元素，就分割。因此，中间的 16 分割后介于 15 和 17 之间，是 <code>15 17</code> 节点的第二个子节点。</p>
+如果大于 3 个元素，就分割。这个例子中，节点 <code>16 17 18 19</code> 超过了限制，可以让 17 上溢，与 15 融合。中间的 16 分割后介于 15 和 17 之间，是 <code>15 17</code> 节点的第二个子节点。</p>
 <p><img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec17-4.png"
 	width="960"
 	height="540"
@@ -536,7 +537,7 @@
 		data-flex-basis="426px"
 	
 >
-在这个例子当中，根节点也需要分割。因此，新的根节点变成了 17，同时将 13 和剩下的节点分开。因此，当根节点充满元素的时候，刚好会提升一层高度，树还是充满的。</p>
+在这个例子当中，根节点也需要上溢。因此，新的根节点变成了 17，同时将 13 和剩下的节点分开。因此，当根节点充满元素的时候，刚好会提升一层高度，树还是充满的。</p>
 <h3 id="分类">分类
 </h3><p>如果让 $L=3$，就像上面的示例，那么也称为 2-3-4 树（aka 2-4 树）。这意味着每个节点可能有 2、3、4 个子节点。</p>
 <p>如果让 $L=2$，那么也称为 2-3 树，因为可能有 2 个或 3 个子节点。</p>
@@ -568,8 +569,8 @@
 >
 图中的例子同时违反了这两个不变量。</p>
 <h3 id="性能">性能
-</h3><p>对于 L 为 2 的 B 树，在最差情况下，高度是 $\log_2(n)$。在最好情况下，高度为 $\log_3(n)$。所以，高度是 $\Theta(\log(n))$。</p>
-<p>对于查找操作，设高度为 H。在最差情况下，需要查找 <code>H+1</code> 个节点，同时每次需要遍历 <code>L</code> 个元素。因此时间为 $O(HL)=O(L \log(n))=O(\log(n))$。</p>
+</h3><p>对于 <code>L</code> 为 2 的 B 树，在最差情况下，高度是 $\log_2(n)$。在最好情况下，高度为 $\log_3(n)$。所以，高度是 $\Theta(\log(n))$。</p>
+<p>对于查找操作，设高度为 <code>H</code>。在最差情况下，需要查找 <code>H+1</code> 个节点，同时每次需要遍历 <code>L</code> 个元素。因此时间为 $O(HL)=O(L \log(n))=O(\log(n))$。</p>
 <p>可以证明加入操作和删除操作也是 $O(\log(n))$。</p>
 <h1 id="lec18-red-black-trees">lec18 Red Black Trees
 </h1><h2 id="树旋转">树旋转
@@ -589,7 +590,7 @@
 		data-flex-basis="426px"
 	
 ></p>
-<p>某节点左旋转：设该节点原先的右节点为 x。则旋转后让 x 的左子节点编程该节点。</p>
+<p>某节点左旋转：设该节点原先的右节点为 x。则旋转后让 x 的左子节点变成该节点。</p>
 <p>旋转还有另一种理解方法：首先让 P 向上与 G 融合。然后将 G 分裂下来，拥有 C 和 k 两个子节点。
 <img src="/p/cs61b-week7-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec18-2.png"
 	width="960"
@@ -822,12 +823,12 @@
 </h1><p>要使用搜索树，元素必须是可比较的，有什么方法不需要比较呢？同时，有没有可能比 $\Theta(\log(n))$ 更快呢？</p>
 <p>可以将数据值（整数）作为索引，创造一个 bool 的数组。真就代表有这个数据，否就代表没有。这样的结构拥有 $\Theta(1)$ 的 <code>contains(x)</code> 和 <code>add(x)</code> 速度。然而，缺陷也相当明显，浪费了大量的内存，并且无法表示非正整数。</p>
 <h2 id="储存单词">储存单词
-</h2><p>有一个不聪明的方法，那就是使用第一个字母对应 1 到 26。然而，这样很可能会碰撞，也无法储存数字。</p>
+</h2><p>为了存储单词，有一个不聪明的方法，那就是使用第一个字母对应 1 到 26。然而，这样很可能会碰撞，也无法储存数字。</p>
 <h3 id="避免碰撞">避免碰撞
 </h3><p>使用每一位字母乘以 27 的对应次方。例如，&ldquo;cat&quot;计算可以得出 $$3\times 27^{2}+1\times27^{2}+20\times 27^{0} = 2234$$其中，a 代表 1，z 代表26。</p>
 <p>对于纯英文单词，只要选择的基数大于等于 26，就不会发生碰撞。</p>
 <h3 id="编码">编码
-</h3><p>从 33 到 126 的 ASCII 吗是可以打印的。
+</h3><p>从 33 到 126 的 ASCII 码是可以打印的。
 同样，在 ASCII 之外，Unicode 也是支持的。可以用这个方法来 hash 中文。</p>
 <h2 id="整数上溢">整数上溢
 </h2><p>在 Java 中，最大的整数为 2147483647。超过这个数的正数会上溢。这会带来碰撞。</p>
@@ -838,7 +839,7 @@
 <li>如何计算任意物品的哈希码？</li>
 </ul>
 <h2 id="解决碰撞">解决碰撞
-</h2><p>可以让 hash 数组表示指针，指向链表。每个链表当中可以有许多物品。</p>
+</h2><p>可以让 hash 数组的元素表示指针，指向链表。每个链表当中可以有许多物品。</p>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
@@ -868,21 +869,21 @@
 <p>其中，Q 是最长链表的长度。HashCode 可以利用取余数，得到某一区间内的整数。</p>
 <h2 id="优化">优化
 </h2><p>假设数组的大小是固定的 M，则当 N 不断增大超过 M 后，Q 就与 N 成正比，最终的时间就变成了 $\Theta(n)$，性能不好。</p>
-<p>因此，考虑让 M 的大小不断增大，这和 [[CS61B project1]] 中 ArrayDeque 类似。如果 N/M 大于某一个数，例如 1.5，那么就让 M 的大小翻倍。</p>
+<p>因此，考虑让 M 的大小不断增大，这和 project1 中的 ArrayDeque 类似。如果 N/M 大于某一个数，例如 1.5，那么就让 M 的大小翻倍。</p>
 <p>每一次扩大 M 需要消耗 $\Theta(n)$ 的时间，但是之后每一次操作只需要消耗 $\Theta(1)$ 的时间，因此整体的时间复杂度还是 $\Theta(1)$。</p>
 <h2 id="java-中的-hash">Java 中的 hash
 </h2><p>Java 中所有对象都必须实现 <code>.hashCode()</code> 方法。默认的方法会返回该对象的内存地址。</p>
-<p>Java 中的 <code>%</code> 对于负数的处理不满足我们的预期，得到的是负数，而不是正数。因此，使用 <code>Math.floorMod(x, mod)</code>。</p>
+<p>Java 中的 <code>%</code> 对于负数的处理不满足我们的预期，可能得到负数，而不是正数。因此，使用 <code>Math.floorMod(x, mod)</code>。</p>
 <p>警告：</p>
 <ul>
 <li>不要使用 HashSet 或 HashMap 来储存会改变状态的对象</li>
 <li>在 override equals 的时候也需要 override hashCode，不然会引发诡异的现象</li>
 </ul>
-<p>Java 中 String 实际上使用的指数为 31，而不是 126 这样较大的数。这是因为计算的上溢，导致 <code>126^32=126^33=...=0</code>，所以无法区分多余 32 的字符的字符串。</p>
+<p>Java 中 String 实际上使用的指数为 31，而不是 126 这样较大的数。这是因为计算的上溢，导致 <code>126^32=126^33=...=0</code>，所以如果使用 126 作为基数，无法区分长度大于 32 的字符串。</p>
 <h1 id="lab7">lab7
 </h1><p>这个 lab 需要使用二叉搜索树来实现 Map，即 BSTMap。其中，只用实现一些相对简单的方法。而一些复杂的方法，例如 <code>remove</code>、<code>iterator</code> 和 <code>keySet</code> 则是选做。</p>
 <h2 id="泛型处理">泛型处理
-</h2><p>如果希望指定某一个泛型继承自某一个类，自需要使用 bounded type parameter，例如下面的代码：</p>
+</h2><p>如果希望指定某一个泛型继承自某一个类，需要使用 bounded type parameter，例如下面的代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1110,7 +1111,173 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="删除">删除
+</h2><p>终于来到了最麻烦的部分。<code>V remove(K key)</code> 需要根据索引 <code>key</code> 来删除相应的节点，并返回被删除节点对应的 <code>value</code>。</p>
+<p>首先，判断能不能真正删除节点。利用之前的 <code>searchKey</code> 方法；如果不能，直接返回 <code>null</code>。</p>
+<p>之后，储存相应的 val，然后执行 <code>delete</code> 删除。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="n">K</span><span class="w"> </span><span class="n">key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">searchKey</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">V</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">searchKey</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">).</span><span class="na">value</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">delete</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">size</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">val</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
+</div><p><code>delete</code> 方法的输入为节点和 key，返回值也是节点。如果当前为空，返回空。然后比较 key 与当前节点的 key。如果不相等，就分别在左右子树查找。</p>
+<p>在相等的情况下，需要分类讨论：</p>
+<ul>
+<li>如果没有子节点，就直接返回 null。</li>
+<li>如果有一个子节点，就返回相应子节点的指针。</li>
+<li>如果有两个子节点，需要找到在当前节点左侧的最大节点，然后将值赋给当前节点。之后删除左侧最大节点。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">now</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="n">key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">key</span><span class="p">.</span><span class="na">compareTo</span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">key</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cmp</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">delete</span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cmp</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">delete</span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">countChildren</span><span class="p">(</span><span class="n">now</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">0</span><span class="p">:</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="o">-</span><span class="n">1</span><span class="p">:</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">1</span><span class="p">:</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">case</span><span class="w"> </span><span class="n">2</span><span class="p">:</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findBiggestLeft</span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">now</span><span class="p">.</span><span class="na">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="na">key</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">now</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="na">value</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deleteMax</span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">now</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中，需要完成三个方法：
+一： <code>countChildren</code> 计算当前节点的子节点个数。很简单，这里略过。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">countChildren</span><span class="p">(</span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">now</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="n">1</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="n">1</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">2</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>二： <code>findBiggestLeft</code> 找到最大子节点。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findBiggestLeft</span><span class="p">(</span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">now</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">now</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">findBiggestLeft</span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>三：<code>deleteMax</code> 删除最大节点。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">deleteMax</span><span class="p">(</span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="n">V</span><span class="o">&gt;</span><span class="w"> </span><span class="n">now</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">now</span><span class="p">.</span><span class="na">left</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deleteMax</span><span class="p">(</span><span class="n">now</span><span class="p">.</span><span class="na">right</span><span class="p">);</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">now</span><span class="p">;</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>完成了这些函数，就可以实现 BST 的删除功能。</p>
+
 </section>
 
 

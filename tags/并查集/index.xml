@@ -139,7 +139,7 @@
 &lt;/table&gt;
 &lt;h2 id=&#34;idea-5&#34;&gt;Idea 5
 &lt;/h2&gt;&lt;p&gt;在此基础上，如果找到了一些节点的最终根节点，那么就可以把这些节点的 parent 设置为根节点，这样会更快。&lt;/p&gt;
-&lt;p&gt;最初的操作可能好事，但最后会相当接近常数。&lt;/p&gt;
+&lt;p&gt;最初的操作可能耗时，但最后会相当接近常数。&lt;/p&gt;
 &lt;h1 id=&#34;lec15-asymptotics-ii&#34;&gt;lec15 Asymptotics II
 &lt;/h1&gt;&lt;h2 id=&#34;例子-2&#34;&gt;例子 2
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -163,7 +163,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;一种方法是利用画图，可以夹在两条直线之间。&lt;/p&gt;
-&lt;p&gt;另一种方法是 $1+2+4+\ldots+N=2N-1$。分析的时候需要注意，这与 $1+2+3+&amp;hellip;+Q=\Theta(Q)$ 不同。&lt;/p&gt;
+&lt;p&gt;另一种方法是 $1+2+4+\ldots+N=2N-1$。分析的时候需要注意，这与 $1+2+3+&amp;hellip;+Q=\Theta(Q^2)$ 不同。&lt;/p&gt;
 &lt;h2 id=&#34;递归&#34;&gt;递归
 &lt;/h2&gt;&lt;p&gt;对于一些递归的问题，如果每次需要调用两次 n-1 的函数，那么复杂度为 $2^N$。&lt;/p&gt;
 &lt;p&gt;对应公式为 $1+2+4+\ldots+2^{N-1}=2^N-1$。&lt;/p&gt;
@@ -186,9 +186,9 @@
 &lt;li&gt;&lt;code&gt;insert (int x)&lt;/code&gt;：将 x 插入。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;int remove()&lt;/code&gt;：随机从袋子中移除一个物品。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;int sample()&lt;/code&gt;：随机观察袋子中每个物品的值（不删除）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;int size()&lt;/code&gt;：袋子中物品的数量
-此时，因为考虑到需要随机读取元素，因此数组会是更好的实现方式，能带来 $\Theta(1)$ 的性能。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int size()&lt;/code&gt;：袋子中物品的数量&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;此时，因为考虑到需要随机读取元素，数组会是更好的实现方式，能带来 $\Theta(1)$ 的性能。&lt;/p&gt;
 &lt;h3 id=&#34;java-内置-adt&#34;&gt;Java 内置 ADT
 &lt;/h3&gt;&lt;p&gt;大多数有用的接口都在 &lt;code&gt;java.util&lt;/code&gt; 中。例如，有 List，Set，Map 等等。同时，Java 也提供了许多有用的实现方式。这一节会学习 TreeSet 和 TreeMap。&lt;/p&gt;
 &lt;h2 id=&#34;二叉搜索树bst&#34;&gt;二叉搜索树（BST）
@@ -218,9 +218,9 @@
 &lt;p&gt;对于二叉搜索树来说，对于每个节点，都有以下性质：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;左侧子节点的值比当前节点的值小&lt;/li&gt;
-&lt;li&gt;右侧子节点的值比当前节点的值大
-同时，这种排序方式需要是明确的。&lt;/li&gt;
+&lt;li&gt;右侧子节点的值比当前节点的值大&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;同时，这种排序方式需要是明确的。&lt;/p&gt;
 &lt;h3 id=&#34;搜索&#34;&gt;搜索
 &lt;/h3&gt;&lt;p&gt;对于二叉搜索树，搜索起来相当简单。如果当前节点的值等于搜索值，就返回。不然，如果搜索值小于当前值，就在左侧子树上搜索；否则在右侧搜索。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week6-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/tree2.png&#34;
@@ -294,7 +294,7 @@
 		data-flex-basis=&#34;426px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;这时候，为了方便起见，可以考虑保留 k，只是更换当中的值。那么，这个新的值必须要比左侧所有节点的值大，比右侧所有节点的值小。&lt;/p&gt;
+&lt;p&gt;这时候，为了方便起见，可以考虑保留 k 这个节点，只是更换当中的值。那么，这个新的值必须要比左侧所有节点的值大，比右侧所有节点的值小。&lt;/p&gt;
 &lt;p&gt;通过观察发现，左子树的最大值 g 和右子树的最小值 m 符合要求，因此可以选取其中之一更换 k 的值。然后，删除 g 或 m。此时，如果要被删除的节点有两个子节点，就不满足上面最小值或最大值的情况，因此该节点只能有 0 个或 1 个子节点，删除它也就变成了前两种情况。&lt;/p&gt;
 &lt;h3 id=&#34;应用&#34;&gt;应用
 &lt;/h3&gt;&lt;p&gt;二叉搜索树可以实现集合和字典。因为二叉搜索树没有重复元素，因此满足了集合和字典的要求。&lt;/p&gt;
