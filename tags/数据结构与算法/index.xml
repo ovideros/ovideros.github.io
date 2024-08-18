@@ -18,7 +18,7 @@
 &lt;/h3&gt;&lt;p&gt;对于整数数组，遇到整数 x，就睡觉 x 秒，然后打印出 x。&lt;/p&gt;
 &lt;h3 id=&#34;counting-sort&#34;&gt;Counting Sort
 &lt;/h3&gt;&lt;p&gt;对于从 0 开始的连续整数，创造一个新的数组，每次将整数放到相应的索引处。时间复杂度为 $\Theta(n)$。这里没有比较。&lt;/p&gt;
-&lt;p&gt;让这个想法一般化。首先扫描数组，使用一个另数组来记录元素和对应的个数。然后，计算出每个元素在数组中开始的位置。每次放入一个元素，就更新元素开始的位置。显然，这样的排序会保留原先的顺序，具有稳定性。
+&lt;p&gt;让这个想法一般化。首先扫描数组，使用另一个数组来记录元素和对应的个数。然后，计算出每个元素在数组中开始的位置。每次放入一个元素，就更新元素开始的位置。显然，这样的排序会保留原先的顺序，具有稳定性。
 &lt;img src=&#34;https://ovideros.github.io/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec35-1.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
@@ -73,21 +73,22 @@
 	
 &gt;&lt;/p&gt;
 &lt;h1 id=&#34;lec36-sorting-and-data-structures-conclusion&#34;&gt;lec36 Sorting and Data Structures Conclusion
-&lt;/h1&gt;&lt;h1 id=&#34;基数排序与归并排序比较&#34;&gt;基数排序与归并排序比较
-&lt;/h1&gt;&lt;h2 id=&#34;大致理论分析&#34;&gt;大致理论分析
-&lt;/h2&gt;&lt;p&gt;如果归并排序作用到长度为 W 的字符串上，时间是多少呢？如果每次字符的比较都消耗时间，也就是字符串全都相等，那么最终的耗时就是 $\Theta(WN\log(N))$。&lt;/p&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;基数排序与归并排序比较&#34;&gt;基数排序与归并排序比较
+&lt;/h2&gt;&lt;h3 id=&#34;大致理论分析&#34;&gt;大致理论分析
+&lt;/h3&gt;&lt;p&gt;如果归并排序作用到长度为 W 的字符串上，时间是多少呢？如果每次字符的比较都消耗时间，也就是字符串全都相等，那么最终的耗时就是 $\Theta(WN\log(N))$。&lt;/p&gt;
 &lt;p&gt;基数排序作用到这个数据上，需要消耗 $\Theta(WN)$ 的时间。理论上来讲，当 N 相当大的时候，并且字符串前面几乎相同时，基数排序更快。&lt;/p&gt;
-&lt;h2 id=&#34;理论计算&#34;&gt;理论计算
-&lt;/h2&gt;&lt;p&gt;通过计算，对于长度 1000 的 1000 个字符串，归并排序的比较次数比 MSD 多了 6 倍多。&lt;/p&gt;
-&lt;h2 id=&#34;实践比较&#34;&gt;实践比较
-&lt;/h2&gt;&lt;p&gt;实践中发现，归并排序比 MSD 快得多，不符合理论。可能是刚刚的模型有问题，只考虑到了比较，没有考虑内存和其他计算。&lt;/p&gt;
+&lt;h3 id=&#34;理论计算&#34;&gt;理论计算
+&lt;/h3&gt;&lt;p&gt;通过计算，对于长度 1000 的 1000 个字符串，归并排序的比较次数比 MSD 多了 6 倍多。&lt;/p&gt;
+&lt;h3 id=&#34;实践比较&#34;&gt;实践比较
+&lt;/h3&gt;&lt;p&gt;实践中发现，归并排序比 MSD 快得多，不符合理论。可能是刚刚的模型有问题，只考虑到了比较，没有考虑内存和其他计算。&lt;/p&gt;
 &lt;p&gt;也有一个很重要的问题：Java 有 Just In Time 编译器。如果某段代码被调用了许多次，编译器会根据它的表现，重新实现代码，大大提高性能。&lt;/p&gt;
 &lt;p&gt;在这个例子中，经过两次优化后，性能提高了几百倍甚至几万倍。&lt;/p&gt;
 &lt;p&gt;如果关闭 JIT，那么时间的结果比较吻合理论分析。这告诉我们，算法的执行会受到很多因素的影响，时间复杂度只是其中的一小部分。很多时候只有真正跑起来才能比较性能。&lt;/p&gt;
-&lt;h1 id=&#34;使用基数排序排整数&#34;&gt;使用基数排序排整数
-&lt;/h1&gt;&lt;p&gt;对于整数，可以使用不同的进制，例如 10、16、256、65336 等等。如果要排列一亿个 int，根据实验，Java 默认的快速排序需要花费 10.9 秒，而基数为 256 的时候表现最好，需要 2.28 秒。&lt;/p&gt;
-&lt;h1 id=&#34;排序总结&#34;&gt;排序总结
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1.png&#34;
+&lt;h2 id=&#34;使用基数排序排整数&#34;&gt;使用基数排序排整数
+&lt;/h2&gt;&lt;p&gt;对于整数，可以使用不同的进制，例如 10、16、256、65336 等等。如果要排列一亿个 int，根据实验，Java 默认的快速排序需要花费 10.9 秒，而基数为 256 的时候表现最好，需要 2.28 秒。&lt;/p&gt;
+&lt;h2 id=&#34;排序总结&#34;&gt;排序总结
+&lt;/h2&gt;&lt;p&gt;排序部分的总结如下：
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
 	srcset=&#34;https://ovideros.github.io/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1_hu4adb9e6b53dd5cd4474a8761183b7394_91301_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week14-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec36-1_hu4adb9e6b53dd5cd4474a8761183b7394_91301_1024x0_resize_box_3.png 1024w&#34;
@@ -156,7 +157,7 @@
 &lt;/h2&gt;&lt;p&gt;排序在很多地方有用。例如要寻找数组中的重复元素，如果使用排序，就可以让复杂度从 $O(n^2)$ 降到 $O(n\log(n))$。又比如在三数之和等问题中有用。&lt;/p&gt;
 &lt;p&gt;通过数学，可以证明 $\log(n!)$ 是 $n\log(n)$ 的同阶无穷大。&lt;/p&gt;
 &lt;p&gt;假设拥有最快的排序算法，那么它的运行时间一定是 $O(n\log(n))$。同时，最差情况下，至少要遍历所有元素，才能确认是排序的。所以运行时间为 $\Omega(n)$。&lt;/p&gt;
-&lt;h2 id=&#34;小狗猫和大狗&#34;&gt;小狗，猫和大狗
+&lt;h2 id=&#34;小狗猫和大狗&#34;&gt;小狗、猫和大狗
 &lt;/h2&gt;&lt;p&gt;假设把小狗、猫和大狗放进不透明的三个盒子当中，你只有一个秤。怎么样来判断？&lt;/p&gt;
 &lt;p&gt;有些情况下，只需要两次比较就可以。但是，有些情况下，进行两次比较之后，必须进行第三次比较。
 &lt;img src=&#34;https://ovideros.github.io/p/cs61b-week13-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec34-1.png&#34;
@@ -207,7 +208,7 @@
 &lt;/h3&gt;&lt;p&gt;考虑不使用其他数组，而是在输入的基础上使用堆排序。首先，看成是没有排序的堆。因此，需要不断让靠后的元素向上，保证堆的性质。&lt;/p&gt;
 &lt;p&gt;接着，每次删除最大元素，也就是移除第一个元素，然后将最后一个元素放到第一个元素，下沉。最后消耗 $O(n\log(n))$ 的时间。因为不新建数组，所以空间复杂度为 $\Theta(1)$。&lt;/p&gt;
 &lt;h3 id=&#34;归并排序&#34;&gt;归并排序
-&lt;/h3&gt;&lt;p&gt;将数组分成两部分。分别递归让左右排序号，然后新建数组，分别去除两个有序数组的最小项。时间复杂度为 $\Theta(n\log(n))$，空间复杂度为 $\Theta(n)$。&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;将数组分成两部分。分别递归让左右排序好，然后新建数组，分别去除两个有序数组的最小项。时间复杂度为 $\Theta(n\log(n))$，空间复杂度为 $\Theta(n)$。&lt;/p&gt;
 &lt;h3 id=&#34;插入排序&#34;&gt;插入排序
 &lt;/h3&gt;&lt;p&gt;每次对于未排序的第一个元素，在排序的元素中比较，向前交换，直到顺序正确。时间复杂度最低为 $\Omega(n)$，最高为 $O(n^2)$。&lt;/p&gt;
 &lt;p&gt;如果有一个几乎排序好的数组，那么插入排序很快。&lt;/p&gt;
@@ -265,12 +266,12 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;模块化设计&#34;&gt;模块化设计
 &lt;/h2&gt;&lt;p&gt;使用模块化设计可以有效减少复杂性，例如使用帮助函数和帮助类。模块一词可以指代很多东西，例如类、包、一段代码等等。模块之间不可能完全独立，但是需要处理好如何在模块之间传递信息。理想情况下，目标就是尽可能减少模块之间的依赖性。&lt;/p&gt;
-&lt;p&gt;最好的模块同时具有简单的接口和复杂的实现方式。通过简单的接口，可以简化调用，并且也方便修改。这就实现了隐藏内部的复杂性。例如，利用红黑树实现 Map，就做到了这一点，外界完全不用直到红黑树是怎么实现的。&lt;/p&gt;
+&lt;p&gt;最好的模块同时具有简单的接口和复杂的实现方式。通过简单的接口，可以简化调用，并且也方便修改。这就实现了隐藏内部的复杂性。例如，利用红黑树实现 Map，就做到了这一点，外界完全不用知道红黑树是怎么实现的。&lt;/p&gt;
 &lt;p&gt;信息隐藏的反面就是信息暴露。如果在较高的抽象层直接从很低的抽象层操纵事务，就会导致复杂性很高。软件工程师的必要技能之一就是敏锐地察觉到信息暴露的情况。&lt;/p&gt;
 &lt;p&gt;推荐的做法：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;创造类和接口，实现封装复杂性。&lt;/li&gt;
-&lt;li&gt;创造 &amp;lsquo;deep&amp;rsquo;的模块，拥有简单地接口和复杂的实现方式。&lt;/li&gt;
+&lt;li&gt;创造 &amp;lsquo;deep&amp;rsquo; 的模块，拥有简单的接口和复杂的实现方式。&lt;/li&gt;
 &lt;li&gt;不要过度依赖“暂时分解模块”。&lt;/li&gt;
 &lt;li&gt;战略性，而不是战术性。&lt;/li&gt;
 &lt;li&gt;为你自己隐藏信息。&lt;/li&gt;
@@ -312,7 +313,8 @@
 &lt;/h3&gt;&lt;p&gt;在搜索的时候，如果当前字符不在 trie 中，就说明不存在。或者最后一个字符在 trie 中，但是节点是白色，说明该字符串不存在。&lt;/p&gt;
 &lt;h2 id=&#34;trie-的实现与性能&#34;&gt;Trie 的实现与性能
 &lt;/h2&gt;&lt;h3 id=&#34;实现&#34;&gt;实现
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2.png&#34;
+&lt;/h3&gt;&lt;p&gt;实现方法如下：
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
 	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-2_huc926646302866119f945222608773d97_87714_1024x0_resize_box_3.png 1024w&#34;
@@ -363,8 +365,8 @@
 &lt;/h3&gt;&lt;h4 id=&#34;哈希表&#34;&gt;哈希表
 &lt;/h4&gt;&lt;p&gt;为了避免大量无效的链接，使用哈希表。&lt;/p&gt;
 &lt;h4 id=&#34;二叉树&#34;&gt;二叉树
-&lt;/h4&gt;&lt;p&gt;使用二叉树来表示链接的部分。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5.png&#34;
+&lt;/h4&gt;&lt;p&gt;使用二叉树来表示链接的部分。
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5.png&#34;
 	width=&#34;960&#34;
 	height=&#34;540&#34;
 	srcset=&#34;https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week11-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec26-5_hucd47d5d4b9205355a45a8f6a39a0d563_101623_1024x0_resize_box_3.png 1024w&#34;
@@ -543,7 +545,20 @@
 &lt;h3 id=&#34;dijkstra&#34;&gt;Dijkstra
 &lt;/h3&gt;&lt;p&gt;不要用深度优先，而是用&amp;quot;best first search&amp;quot;。&lt;/p&gt;
 &lt;p&gt;在每一次选择下一个遍历的节点时，聚焦于距离最短的那个节点。然后，计算各个边带来的距离，并且更新最短距离。
-![lec23-2 1.png](lec23-2 1.png)&lt;/p&gt;
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-3.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-3_hud7a58d1f618bb9f6e3ef9fef38357fca_99520_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec23-3_hud7a58d1f618bb9f6e3ef9fef38357fca_99520_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec23-3.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
 &lt;p&gt;将所有的点插入 fringe PQ，储存节点距离源的距离。重复以下步骤：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;从 PQ 中移除距离最小的节点&lt;/li&gt;
@@ -573,7 +588,20 @@
 &lt;p&gt;在有些图中，从某些节点出发的 SPT 并不是 MST，但有些节点是。但有些图中，根本没有 SPT 是 MST。所以，不能通过先确定某个节点，再根据 Dijkstra 来找到 MST。&lt;/p&gt;
 &lt;h3 id=&#34;cut-特性&#34;&gt;Cut 特性
 &lt;/h3&gt;&lt;p&gt;Cut 将图中节点分类两类非空集合。一个交叉边就是连接两个不同集合节点的边。Cut 特性：给定任意的 Cut，拥有最小值的交叉边一定是 MST 的一部分。这可以通过反证法证明。
-![lec24-2 1.png](lec24-2 1.png)&lt;/p&gt;
+&lt;img src=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-2.png&#34;
+	width=&#34;960&#34;
+	height=&#34;540&#34;
+	srcset=&#34;https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-2_hu9a6a70b1ecb8023762434328e8660ec8_77769_480x0_resize_box_3.png 480w, https://ovideros.github.io/p/cs61b-week9-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/lec24-2_hu9a6a70b1ecb8023762434328e8660ec8_77769_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;lec24-2.png&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
+&gt;&lt;/p&gt;
 &lt;p&gt;利用这个，可以找到一个 cut，它的交叉边都不在 MST 中，然后将最小值加入 MST。不断重复。&lt;/p&gt;
 &lt;h2 id=&#34;prim-算法&#34;&gt;Prim 算法
 &lt;/h2&gt;&lt;p&gt;第一次选取最短的边。然后考虑所有标记过的节点，将其和剩余节点看做一个 cut，然后找到最小值的边。当有两个相同最小值时，选择任意一个都行。有时候，MST 不是唯一的。&lt;/p&gt;
