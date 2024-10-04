@@ -6,10 +6,26 @@
         <description>Recent content in Tags on Ovid的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 15 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 03 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://ovideros.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Ai</title>
+        <link>https://ovideros.github.io/tags/ai/</link>
+        <pubDate>Thu, 03 Oct 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/tags/ai/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Cs50ai</title>
+        <link>https://ovideros.github.io/tags/cs50ai/</link>
+        <pubDate>Thu, 03 Oct 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://ovideros.github.io/tags/cs50ai/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Cs61b</title>
         <link>https://ovideros.github.io/tags/cs61b/</link>
-        <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 03 Oct 2024 00:00:00 +0000</pubDate>
         
         <guid>https://ovideros.github.io/tags/cs61b/</guid>
         <description></description>
@@ -17,7 +33,7 @@
         <item>
         <title>Java</title>
         <link>https://ovideros.github.io/tags/java/</link>
-        <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 03 Oct 2024 00:00:00 +0000</pubDate>
         
         <guid>https://ovideros.github.io/tags/java/</guid>
         <description></description>
@@ -25,7 +41,7 @@
         <item>
         <title>编程感悟</title>
         <link>https://ovideros.github.io/tags/%E7%BC%96%E7%A8%8B%E6%84%9F%E6%82%9F/</link>
-        <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 03 Oct 2024 00:00:00 +0000</pubDate>
         
         <guid>https://ovideros.github.io/tags/%E7%BC%96%E7%A8%8B%E6%84%9F%E6%82%9F/</guid>
         <description></description>
@@ -33,7 +49,7 @@
         <item>
         <title>数据结构与算法</title>
         <link>https://ovideros.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
-        <pubDate>Thu, 15 Aug 2024 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 03 Oct 2024 00:00:00 +0000</pubDate>
         
         <guid>https://ovideros.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</guid>
         <description></description>
